@@ -1,0 +1,9 @@
+= Fretboard Diagrams =
+
+This tool aims to help the guitar student to print diagrams of the guitar fretboard.
+This is something I made to myself, so I could print a few diagrams and draw the shapes for the chords, scales, modes, or whatever.
+Feel free to drop an email with suggestions for improvement.
+
+Home: http://fretprinting.appspot.com
+Dev-home: https://github.com/eliasdorneles/fretprinting
+
