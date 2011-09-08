@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
     <head>
-	<title>Fretboard Diagrams</title>
+	<title>Frets on Print</title>
 	<style>
 	    * { margin:0; padding:0; border-spacing:0; }
 	    body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
@@ -26,8 +26,8 @@
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script>
-	    // TODO: make linkable using url parameters, create some presets
-	    var fretboard = function(n_strings, inlay_repr, dot_mark){
+	    // TODO: create some presets
+	    var fretboard = function(n_strings, inlay_repr, dot_mark, show_numbers){
 		var fret = function(num_str, dotted, two){
 		    if (dotted){
 			var place = two ? 1 : (num_str / 2 - 1) | 0; // cast-to-int HACK!
@@ -50,60 +50,18 @@
 		    ':': fret(n_strings, true, true)
 		}
 		var fretboard_elem = $('<table class="fretboard"></table>');
-		var show_numbers = $('#fret_numbers').is(':checked') ? '' : ' style="visibility:hidden"';
+		var numbers_style = show_numbers ? '' : ' style="visibility:hidden"';
 		for (var i = 0; i < inlay_repr.length; i++){
 		    var e = $(fret_for_repr[inlay_repr[i]]);
 		    if (i == inlay_repr.length - 1){
 			e.attr('class', 'lastfret');
 		    }
-		    e.prepend('<td class="fretnumber"' + show_numbers + '>' + (i+1) + '</td>');
+		    e.prepend('<td class="fretnumber"' + numbers_style + '>' + (i+1) + '</td>');
 		    fretboard_elem.append(e);
 		}
 		return fretboard_elem;
 	    }
-	    var generate = function(){
-		var how_many = $('#how_many').val();
-		var dot_mark = '&#x25cf;';
-		var fretboard_inlay = $('#inlay_variation').val();
-		var num_strings = $('select#num_strings').val();
-		var frets_per_diagram = $('select#frets_per_diagram').val();
-		if (frets_per_diagram < fretboard_inlay.length){
-		    fretboard_inlay = fretboard_inlay.substr(0, frets_per_diagram);
-		}
-
-		// empty container
-		$('#main').empty();
-		// draw fretboards
-		for(var i = 0; i < how_many; i++){
-		    $('#main').append(fretboard(num_strings, fretboard_inlay, dot_mark));
-		}
-		// adjust size
-		var css_size_style = {
-		    'Small':  { width: '18px', height: '24px'},
-		    'Medium': { width: '22px', height: '30px'},
-		    'Large': { width: '26px', height: '38px'},
-		}
-		$('.fretboard tr td').css(css_size_style[$('select#size_diagram').val()]);
-	    }
-	    // setup a select dropdown with options and default value
-	    function fill_options(elem, options, defval){
-		$.each(options, function(){
-		    var html = $('<option value="' + this + '">' + this + '</option>');
-		    if (this == defval) {
-			html.attr('selected', '1');
-		    }
-		    elem.append(html);
-		});
-	    }
-	    // create a list from a range
-	    function list_range(start, end){
-		var arr = [];
-		for(var i = start; i <= end; i += 1){
-		    arr.push(i);
-		}
-		return arr;
-	    }
-	    // get parameters after the hash #
+	    // handle url parameters
 	    function get_url_parameters(){
 		var params = {};
 		var index_params = window.location.href.indexOf('#');
@@ -116,7 +74,84 @@
 		}
 		return params;
 	    }
+	    function create_link(how_many, inlay_variation, num_strings, frets_per_diagram, show_numbers, size_diagram){
+		var link_params = {how_many: how_many, inlay_variation: inlay_variation,
+		    num_strings: num_strings, frets_per_diagram: frets_per_diagram, show_numbers: show_numbers}
+		var href = window.location.href;
+		if (href.indexOf('#') > 0){
+		    href = href.substring(0, href.indexOf('#'));
+		}
+		href += '#';
+		for(var key in link_params){
+		    href += key + '=' + link_params[key] + '&';
+		}
+		href = href.substring(0, href.length - 1);
+		return href;
+	    }
+	    function update_form_with_url_params(){
+		var params = get_url_parameters();
+		// TODO: validate input?
+		for(var key in params){
+		    if (key == 'show_numbers'){
+			$('#' + key).attr('checked', params[key] == 'true');
+		    } else {
+			if (key != '')
+			$('#' + key).val(params[key]);
+		    }
+		}
+	    }
+	    var generate = function(){
+		update_form_with_url_params();
+
+		var how_many = $('#how_many').val();
+		var dot_mark = '&#x25cf;';
+		var inlay_variation = $('#inlay_variation').val();
+		var num_strings = $('select#num_strings').val();
+		var frets_per_diagram = $('select#frets_per_diagram').val();
+		var show_numbers = $('#show_numbers').is(':checked');
+		var size_diagram = $('select#size_diagram').val();
+
+		// update link
+		var href = create_link(how_many, inlay_variation, num_strings, frets_per_diagram, show_numbers, size_diagram);
+		$('#link_this').attr('href', href);
+
+		if (frets_per_diagram < inlay_variation.length){
+		    inlay_variation = inlay_variation.substr(0, frets_per_diagram);
+		}
+
+		// empty container
+		$('#main').empty();
+		// draw fretboards
+		for(var i = 0; i < how_many; i++){
+		    $('#main').append(fretboard(num_strings, inlay_variation, dot_mark, show_numbers));
+		}
+		// adjust size
+		var css_size_style = {
+		    'Small':  { width: '18px', height: '24px'},
+		    'Medium': { width: '22px', height: '30px'},
+		    'Large':  { width: '26px', height: '38px'},
+		}
+		$('.fretboard tr td').css(css_size_style[size_diagram]);
+	    }
 	    $(function(){
+		function fill_options(elem, options, defval){
+		    // setup a select dropdown with options and default value
+		    $.each(options, function(){
+			var html = $('<option value="' + this + '">' + this + '</option>');
+			if (this == defval) {
+			    html.attr('selected', '1');
+			}
+			elem.append(html);
+		    });
+		}
+		function list_range(start, end){
+		    // create a list from a range
+		    var arr = [];
+		    for(var i = start; i <= end; i += 1){
+			arr.push(i);
+		    }
+		    return arr;
+		}
 		// setup controls with defaults
 		fill_options($('select#how_many'), list_range(1, 30), 5);
 		fill_options($('select#frets_per_diagram'), list_range(4, 16), 16);
@@ -145,7 +180,7 @@
     </head>
     <body>
 	<div id="interface">
-	    <h1>Fretboard Diagrams</h1>
+	    <h1>Frets on Print</h1>
 	    <h2>Setup and print your fretboard diagrams</h2>
 	    <form>
 		<table>
@@ -155,7 +190,7 @@
 			<td class="label">Inlay:</td>
 			<td><select id="inlay_variation"></select></td>
 			<td class="label">Show fret numbers:</td>
-			<td><input type="checkbox" id="fret_numbers" checked /></td>
+			<td><input type="checkbox" id="show_numbers" checked /></td>
 		    </tr>
 		    <tr>
 			<td class="label">Strings:</td>
@@ -168,6 +203,7 @@
 		    <tr>
 			<td><a href="javascript:void(0)" id="print_btn">Print</a></td>
 			<td><a href="javascript:void(0)" id="help_btn">Help!</a></p></td>
+			<td><a href="#" id="link_this">Link</a></td>
 		    </tr>
 		</table>
 	    </form>
