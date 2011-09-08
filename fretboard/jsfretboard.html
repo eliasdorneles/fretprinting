@@ -18,7 +18,7 @@
 	    #interface { padding:10px; }
 	    #interface h2 { text-align:right; font-size:14px; }
 	    #interface table tr td { padding:3px; padding-right: 15px; }
-	    #interface table tr td.label { padding-right:2px; padding-left: 10px; }
+	    /*#interface table tr td.label { padding-right:3px; padding-left: 15px; }*/
 	    #interface input { padding:0 4px; }
 	    #interface select { padding:0 4px; }
 	    #help { width:460px; padding:15px; position:absolute; background-color:#dee; border:2px solid black; z-index:1; top:80px; left:50px; }
@@ -185,11 +185,11 @@
 	    <form>
 		<table>
 		    <tr>
-			<td class="label">Fretboards:</td>
+			<td class="label">Diagrams:</td>
 			<td><select id="how_many"></select></td>
 			<td class="label">Inlay:</td>
 			<td><select id="inlay_variation"></select></td>
-			<td class="label">Show fret numbers:</td>
+			<td class="label">Show numbers:</td>
 			<td><input type="checkbox" id="show_numbers" checked /></td>
 		    </tr>
 		    <tr>
@@ -197,13 +197,14 @@
 			<td><select id="num_strings"></select></td>
 			<td class="label">Size:</td>
 			<td><select id="size_diagram"></select></td>
-			<td class="label">Frets per diagram:</td>
+			<td class="label">Frets:</td>
 			<td><select id="frets_per_diagram"></select></td>
 		    </tr>
 		    <tr>
+			<td><a href="javascript:void(0)" id="help_btn">Help!</a></td>
 			<td><a href="javascript:void(0)" id="print_btn">Print</a></td>
-			<td><a href="javascript:void(0)" id="help_btn">Help!</a></p></td>
-			<td><a href="#" id="link_this">Link</a></td>
+			<td colspan="2"><a href="#" id="link_this">Link to this diagram</a></td>
+			<td><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></td>
 		    </tr>
 		</table>
 	    </form>
