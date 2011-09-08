@@ -7,7 +7,7 @@
 	    body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
 	    .fretboard { float:left; margin:11px; }
 	    .fretboard tr { padding:0; margin:0; }
-	    .fretboard tr td { width:18px; height:1.5em; padding:0; margin:0; font-size:12pt; text-align:center; border-top:1px solid #aaa; border-left:1px solid black; }
+	    .fretboard tr td { width:18px; height:24px; padding:0; margin:0; font-size:12pt; text-align:center; border-top:1px solid #aaa; border-left:1px solid black; }
 	    .fretboard tr td.laststr { border-right:1px solid black;}
 	    .fretboard tr.lastfret td { border-bottom:1px solid black;}
 	    @media print { #interface { display:none; } }
@@ -26,8 +26,8 @@
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script>
-	    // TODO: allow to specify inner spacing for diagrams
-	    var fretboard = function(n_strings, inlay_repr, dot_mark, frets_per_diagram){
+	    // TODO: make linkable using url parameters, create some presets
+	    var fretboard = function(n_strings, inlay_repr, dot_mark){
 		var fret = function(num_str, dotted, two){
 		    if (dotted){
 			var place = two ? 1 : (num_str / 2 - 1) | 0; // cast-to-int HACK!
@@ -51,9 +51,9 @@
 		}
 		var fretboard_elem = $('<table class="fretboard"></table>');
 		var show_numbers = $('#fret_numbers').is(':checked') ? '' : ' style="visibility:hidden"';
-		for (var i = 0; i < inlay_repr.length && i < frets_per_diagram; i++){
+		for (var i = 0; i < inlay_repr.length; i++){
 		    var e = $(fret_for_repr[inlay_repr[i]]);
-		    if (i == inlay_repr.length - 1 || i == frets_per_diagram - 1){
+		    if (i == inlay_repr.length - 1){
 			e.attr('class', 'lastfret');
 		    }
 		    e.prepend('<td class="fretnumber"' + show_numbers + '>' + (i+1) + '</td>');
@@ -67,10 +67,23 @@
 		var fretboard_inlay = $('#inlay_variation').val();
 		var num_strings = $('select#num_strings').val();
 		var frets_per_diagram = $('select#frets_per_diagram').val();
-		$('#main').empty();
-		for(var i=0; i < how_many; i++){
-		    $('#main').append(fretboard(num_strings, fretboard_inlay, dot_mark, frets_per_diagram));
+		if (frets_per_diagram < fretboard_inlay.length){
+		    fretboard_inlay = fretboard_inlay.substr(0, frets_per_diagram);
 		}
+
+		// empty container
+		$('#main').empty();
+		// draw fretboards
+		for(var i = 0; i < how_many; i++){
+		    $('#main').append(fretboard(num_strings, fretboard_inlay, dot_mark));
+		}
+		// adjust size
+		var css_size_style = {
+		    'Small':  { width: '18px', height: '24px'},
+		    'Medium': { width: '22px', height: '30px'},
+		    'Large': { width: '26px', height: '38px'},
+		}
+		$('.fretboard tr td').css(css_size_style[$('select#size_diagram').val()]);
 	    }
 	    // setup a select dropdown with options and default value
 	    function fill_options(elem, options, defval){
@@ -90,14 +103,28 @@
 		}
 		return arr;
 	    }
+	    // get parameters after the hash #
+	    function get_url_parameters(){
+		var params = {};
+		var index_params = window.location.href.indexOf('#');
+		if (index_params > 0){
+		    var hashes = window.location.href.slice(index_params + 1).split('&');
+		    for(var i = 0; i < hashes.length; i++){
+			var hash = hashes[i].split('=');
+			params[hash[0]] = hash[1];
+		    }
+		}
+		return params;
+	    }
 	    $(function(){
 		// setup controls with defaults
 		fill_options($('select#how_many'), list_range(1, 30), 5);
 		fill_options($('select#frets_per_diagram'), list_range(4, 16), 16);
 		fill_options($('select#num_strings'), list_range(4, 8), 6);
-		$('#inlay_variation').append('<option value="----------------" selected>No Inlay</option>');
-		$('#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Var 1</option>');
-		$('#inlay_variation').append('<option value="--.-.-.--.-:--.-">Var 2</option>');
+		fill_options($('select#size_diagram'), ['Small', 'Medium', 'Large'], 'Small');
+		$('select#inlay_variation').append('<option value="----------------" selected>No Inlay</option>');
+		$('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Var 1</option>');
+		$('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Var 2</option>');
 		$('#print_btn').click(function(){
 		    window.print();
 		});
@@ -125,20 +152,22 @@
 		    <tr>
 			<td class="label">Fretboards:</td>
 			<td><select id="how_many"></select></td>
-			<td class="label">Strings:</td>
-			<td><select id="num_strings"></select></td>
-		    </tr>
-		    <tr>
 			<td class="label">Inlay:</td>
 			<td><select id="inlay_variation"></select></td>
 			<td class="label">Show fret numbers:</td>
 			<td><input type="checkbox" id="fret_numbers" checked /></td>
 		    </tr>
 		    <tr>
+			<td class="label">Strings:</td>
+			<td><select id="num_strings"></select></td>
+			<td class="label">Size:</td>
+			<td><select id="size_diagram"></select></td>
 			<td class="label">Frets per diagram:</td>
 			<td><select id="frets_per_diagram"></select></td>
-			<td class="label"><a href="javascript:void(0)" id="print_btn">Print</a></td>
-			<td class="label"><a href="javascript:void(0)" id="help_btn">Help!</a></td>
+		    </tr>
+		    <tr>
+			<td><a href="javascript:void(0)" id="print_btn">Print</a></td>
+			<td><a href="javascript:void(0)" id="help_btn">Help!</a></p></td>
 		    </tr>
 		</table>
 	    </form>
