@@ -17,17 +17,17 @@
 	    /* make-it-pretty stuff */
 	    #interface { padding:10px; }
 	    #interface h2 { text-align:right; font-size:14px; }
-	    #interface table tr td { padding:1px; padding-left:9px; }
+	    #interface table tr td { padding:3px; padding-right: 15px; }
+	    #interface table tr td.label { padding-right:2px; padding-left: 10px; }
 	    #interface input { padding:0 4px; }
+	    #interface select { padding:0 4px; }
 	    #help { width:460px; padding:15px; position:absolute; background-color:#dee; border:2px solid black; z-index:1; top:80px; left:50px; }
 	    #help p { padding:3px; }
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script>
-	    /*
-	    TODO:
-	    */
-	    var fretboard = function(n_strings, inlay_repr, dot_mark){
+	    // TODO: allow to specify inner spacing for diagrams
+	    var fretboard = function(n_strings, inlay_repr, dot_mark, frets_per_diagram){
 		var fret = function(num_str, dotted, two){
 		    if (dotted){
 			var place = two ? 1 : (num_str / 2 - 1) | 0; // cast-to-int HACK!
@@ -51,9 +51,9 @@
 		}
 		var fretboard_elem = $('<table class="fretboard"></table>');
 		var show_numbers = $('#fret_numbers').is(':checked') ? '' : ' style="visibility:hidden"';
-		for (var i = 0; i < inlay_repr.length; i++){
+		for (var i = 0; i < inlay_repr.length && i < frets_per_diagram; i++){
 		    var e = $(fret_for_repr[inlay_repr[i]]);
-		    if (i == inlay_repr.length - 1){
+		    if (i == inlay_repr.length - 1 || i == frets_per_diagram - 1){
 			e.attr('class', 'lastfret');
 		    }
 		    e.prepend('<td class="fretnumber"' + show_numbers + '>' + (i+1) + '</td>');
@@ -63,14 +63,16 @@
 	    }
 	    var generate = function(){
 		var how_many = $('#how_many').val();
-		var dot_mark = $('#interface input[name=dot_mark]:checked').val();
+		var dot_mark = '&#x25cf;';
 		var fretboard_inlay = $('#inlay_variation').val();
 		var num_strings = $('select#num_strings').val();
+		var frets_per_diagram = $('select#frets_per_diagram').val();
 		$('#main').empty();
 		for(var i=0; i < how_many; i++){
-		    $('#main').append(fretboard(num_strings, fretboard_inlay, dot_mark));
+		    $('#main').append(fretboard(num_strings, fretboard_inlay, dot_mark, frets_per_diagram));
 		}
 	    }
+	    // setup a select dropdown with options and default value
 	    function fill_options(elem, options, defval){
 		$.each(options, function(){
 		    var html = $('<option value="' + this + '">' + this + '</option>');
@@ -80,10 +82,20 @@
 		    elem.append(html);
 		});
 	    }
+	    // create a list from a range
+	    function list_range(start, end){
+		var arr = [];
+		for(var i = start; i <= end; i += 1){
+		    arr.push(i);
+		}
+		return arr;
+	    }
 	    $(function(){
 		// setup controls with defaults
-		fill_options($('select#how_many'), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], 5);
-		fill_options($('select#num_strings'), [4, 5, 6, 7, 8], 6);
+		fill_options($('select#how_many'), list_range(1, 30), 5);
+		fill_options($('select#frets_per_diagram'), list_range(4, 16), 16);
+		fill_options($('select#num_strings'), list_range(4, 8), 6);
+		$('#inlay_variation').append('<option value="----------------" selected>No Inlay</option>');
 		$('#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Var 1</option>');
 		$('#inlay_variation').append('<option value="--.-.-.--.-:--.-">Var 2</option>');
 		$('#print_btn').click(function(){
@@ -111,33 +123,30 @@
 	    <form>
 		<table>
 		    <tr>
-			<td rowspan="3">Fretboards: <select id="how_many"></select></td>
-			<td rowspan="3">Strings: <select id="num_strings"></select></td>
-			<td>Inlay:</td>
-			<td><input name="dot_mark" type="radio" value="&#x25cf;" checked> &#x25cf;</td>
-			<td><input id="print_btn" type="button" value="Print" /></td>
+			<td class="label">Fretboards:</td>
+			<td><select id="how_many"></select></td>
+			<td class="label">Strings:</td>
+			<td><select id="num_strings"></select></td>
 		    </tr>
 		    <tr>
+			<td class="label">Inlay:</td>
 			<td><select id="inlay_variation"></select></td>
-			<td><input name="dot_mark" type="radio" value="&#x272a;"> &#x272a;</td>
-			<td>
-			    <!-- input id="generate" type="button" value="Generate!" / -->
-			    <input type="checkbox" id="fret_numbers" checked /> Fret numbers
-			</td>
+			<td class="label">Show fret numbers:</td>
+			<td><input type="checkbox" id="fret_numbers" checked /></td>
 		    </tr>
 		    <tr>
-			<td></td>
-			<td><input name="dot_mark" type="radio" value="#"> #</td>
-			<td><a href="javascript:void(0)" id="help_btn">Help!</a></td>
+			<td class="label">Frets per diagram:</td>
+			<td><select id="frets_per_diagram"></select></td>
+			<td class="label"><a href="javascript:void(0)" id="print_btn">Print</a></td>
+			<td class="label"><a href="javascript:void(0)" id="help_btn">Help!</a></td>
 		    </tr>
 		</table>
 	    </form>
 	    <div id="help">
 		<p>This tool aims to help you to print diagrams of the fretboard of your guitar or bass, so you can write on them the chords, scales, modes, or whatever it is that you're working on at the time.</p>
 		<p>By taking your time writing down the patterns, without the distraction of the guitar in your hands, you will memorize them more quickly. Hopefully, you soon will be to apply them in your playing. :-)</p>
-		<p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a></p>
-		<p><strong>Obs.:</strong> For better results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</p>
-		<p style="font-size:80%;text-decoration:italic;">Written by <a href="http://profiles.google.com/eliasdorneles">Elias Dorneles</a>, Jan/2011.</p>
+		<p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a> or, fork me at github: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
+		<p><strong>Obs.:</strong> For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</p>
 		<div style="text-align:right"><a href="javascript:void(0)" id="help_close_btn">Close</a></div>
 	    </div>
 	</div>
