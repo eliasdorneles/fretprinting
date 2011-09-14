@@ -101,8 +101,6 @@
 		}
 	    }
 	    var generate = function(){
-		update_form_with_url_params();
-
 		var how_many = $('#how_many').val();
 		var dot_mark = '&#x25cf;';
 		var inlay_variation = $('#inlay_variation').val();
@@ -174,6 +172,7 @@
 		$('#interface form select').change(generate);
 
 		// generate for defaults
+		update_form_with_url_params();
 		generate();
 	    });
 	</script>
