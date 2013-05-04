@@ -23,7 +23,9 @@
 	    #interface select { padding:0 4px; }
 	    #help { width:460px; padding:15px; position:absolute; background-color:#dee; border:2px solid black; z-index:1; top:80px; left:50px; }
 	    #help p { padding:3px; }
+        #print_btn { text-decoration: none; }
 	</style>
+    <link media="all" href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script>
 	    // TODO: create some presets
@@ -158,8 +160,8 @@
 		fill_options($('select#num_strings'), list_range(4, 8), 6);
 		fill_options($('select#size_diagram'), ['Tiny', 'Small', 'Medium', 'Large', 'X-Large'], 'Small');
 		$('select#inlay_variation').append('<option value="----------------" selected>No Inlay</option>');
-		$('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Var 1</option>');
-		$('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Var 2</option>');
+		$('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Variation 1</option>');
+		$('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Variation 2</option>');
 		$('#print_btn').click(function(){
 		    window.print();
 		});
@@ -186,34 +188,37 @@
 	    <form>
 		<table>
 		    <tr>
-			<td class="label">Diagrams:</td>
+			<td class="label">How many diagrams?</td>
 			<td><select id="how_many"></select></td>
-			<td class="label">Inlay:</td>
-			<td><select id="inlay_variation"></select></td>
-			<td class="label">Show numbers:</td>
+			<td class="label">Show numbers?</td>
 			<td><input type="checkbox" id="show_numbers" checked /></td>
+			<td class="label">Inlay variation:</td>
+			<td><select id="inlay_variation"></select></td>
 		    </tr>
 		    <tr>
-			<td class="label">Strings:</td>
+			<td class="label">How many strings?</td>
 			<td><select id="num_strings"></select></td>
+			<td class="label">How many frets?</td>
+			<td><select id="frets_per_diagram"></select></td>
 			<td class="label">Size:</td>
 			<td><select id="size_diagram"></select></td>
-			<td class="label">Frets:</td>
-			<td><select id="frets_per_diagram"></select></td>
 		    </tr>
 		    <tr>
-			<td><a href="javascript:void(0)" id="print_btn">Print</a></td>
-			<td colspan="2"><a href="#" id="link_this">Link</a></td>
 			<td></td>
-			<td><a href="javascript:void(0)" id="help_btn">Help!</a></td>
+			<td><a href="javascript:void(0)" id="print_btn" class="btn btn-primary">Print</a></td>
+			<td><a href="index.html">Reset</a></td>
+			<td colspan="2"><a href="#" id="link_this">Link to diagram</a></td>
+			<td><a href="javascript:void(0)" id="help_btn">About</a></td>
 		    </tr>
 		</table>
 	    </form>
 	    <div id="help">
 		<p>This tool aims to help you to print diagrams of the fretboard of your guitar or bass, so you can write on them the chords, scales, modes, or whatever it is that you're working on at the time.</p>
-		<p>By taking your time writing down the patterns, without the distraction of the guitar in your hands, you will memorize them more quickly. Hopefully, you soon will be to apply them in your playing. :-)</p>
+		<p>By taking your time writing down the patterns, without the distraction of the instrument in your hands, you will memorize them more quickly. Hopefully, you soon will be to apply them in your playing. :-)</p>
 		<p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a> or, fork me at github: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
-		<p><strong>Obs.:</strong> For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</p>
+		<p>For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</p>
+        <p>Thank you!</p>
+        <p>Elias Dorneles</p>
 		<div style="text-align:right"><a href="javascript:void(0)" id="help_close_btn">Close</a></div>
 	    </div>
 	</div>
