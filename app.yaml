@@ -1,8 +1,19 @@
 application: fretprinting
 version: 1
-runtime: python
+runtime: python27
 api_version: 1
+threadsafe: yes
 
 handlers:
-- url: /.*
-  script: main.py
+- url: /css
+  static_dir: css
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: .*
+  script: main.app
+
+libraries:
+- name: webapp2
+  version: "2.5.1"
