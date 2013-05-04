@@ -16,7 +16,7 @@
 
 	    /* make-it-pretty stuff */
 	    #interface { padding:10px; }
-	    #interface h2 { text-align:right; font-size:14px; }
+	    #interface h2 { font-size:14px; margin-bottom: 10px; color: #555; }
 	    #interface table tr td { padding:3px; padding-right: 15px; }
 	    /*#interface table tr td.label { padding-right:3px; padding-left: 15px; }*/
 	    #interface input { padding:0 4px; }
@@ -159,7 +159,7 @@
 		fill_options($('select#frets_per_diagram'), list_range(4, 16), 16);
 		fill_options($('select#num_strings'), list_range(4, 8), 6);
 		fill_options($('select#size_diagram'), ['Tiny', 'Small', 'Medium', 'Large', 'X-Large'], 'Small');
-		$('select#inlay_variation').append('<option value="----------------" selected>No Inlay</option>');
+		$('select#inlay_variation').append('<option value="----------------">No Inlay</option>');
 		$('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Variation 1</option>');
 		$('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Variation 2</option>');
 		$('#print_btn').click(function(){
