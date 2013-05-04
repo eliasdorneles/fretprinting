@@ -125,9 +125,11 @@
 		}
 		// adjust size
 		var css_size_style = {
-		    'Small':  { width: '18px', height: '24px'},
-		    'Medium': { width: '22px', height: '30px'},
-		    'Large':  { width: '26px', height: '38px'},
+		    'Tiny':  { width: '18px', height: '24px'},
+		    'Small': { width: '22px', height: '30px'},
+		    'Medium':  { width: '28px', height: '38px'},
+		    'Large':  { width: '36px', height: '50px'},
+		    'X-Large':  { width: '40px', height: '56px'},
 		}
 		$('.fretboard tr td').css(css_size_style[size_diagram]);
 	    }
@@ -154,7 +156,7 @@
 		fill_options($('select#how_many'), list_range(1, 30), 5);
 		fill_options($('select#frets_per_diagram'), list_range(4, 16), 16);
 		fill_options($('select#num_strings'), list_range(4, 8), 6);
-		fill_options($('select#size_diagram'), ['Small', 'Medium', 'Large'], 'Small');
+		fill_options($('select#size_diagram'), ['Tiny', 'Small', 'Medium', 'Large', 'X-Large'], 'Small');
 		$('select#inlay_variation').append('<option value="----------------" selected>No Inlay</option>');
 		$('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Var 1</option>');
 		$('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Var 2</option>');
@@ -200,10 +202,10 @@
 			<td><select id="frets_per_diagram"></select></td>
 		    </tr>
 		    <tr>
-			<td><a href="javascript:void(0)" id="help_btn">Help!</a></td>
 			<td><a href="javascript:void(0)" id="print_btn">Print</a></td>
-			<td colspan="2"><a href="#" id="link_this">Link to this diagram</a></td>
-			<td><a href="http://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script></td>
+			<td colspan="2"><a href="#" id="link_this">Link</a></td>
+			<td></td>
+			<td><a href="javascript:void(0)" id="help_btn">Help!</a></td>
 		    </tr>
 		</table>
 	    </form>
