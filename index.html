@@ -5,6 +5,7 @@
 <title>Fret Printing - Guitar Fretboard Diagrams</title>
 <style>
 * { margin:0; padding:0; border-spacing:0; }
+h1 a, h1 a:visited, h1 a:focus { color: black !important; text-decoration: none; }
 body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
 .fretboard { float:left; margin:11px; }
 .fretboard tr { padding:0; margin:0; }
@@ -234,7 +235,9 @@ $(function(){
 </head>
 <body>
 <div id="interface">
-    <h1>Fret Printing</h1>
+    <h1>
+        <a href="index.html">Fret Printing</a>
+    </h1>
     <h2 class="eng">Setup and print your fretboard diagrams</h2>
     <h2 class="pt">Configure e imprima diagramas para violão, guitarra e baixo</h2>
     <form>
@@ -255,7 +258,7 @@ $(function(){
                     <br />
                     <a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false" class="preset">
                         <span class="eng">Guitar Chord Boxes</span>
-                        <span class="pt">Acordes violão/guitarra</span>
+                        <span class="pt">Diagramas para Acordes violão/guitarra</span>
                     </a>
                     <br />
                     <a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true" class="preset">
@@ -274,18 +277,13 @@ $(function(){
                         <span class="pt">Configurações Avançadas</span>
                 </td>
             </tr>
-        </table>
-        <table>
             <tr>
                 <td>&nbsp;</td>
                 <td><a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
                         <span class="eng">Print diagram</span>
                         <span class="pt">Imprimir diagrama</span>
                 </a></td>
-                <td><a href="index.html">
-                        <span class="eng">Reset</span>
-                        <span class="pt">Desfazer tudo</span>
-                </a></td>
+                <td>&nbsp;</td>
                 <td colspan="2"><a href="#" id="link_this">
                         <span class="eng">Get link</span>
                         <span class="pt">Obter Link</span>
