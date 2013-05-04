@@ -13,6 +13,7 @@ body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
 .fretboard tr td.laststr { border-right:1px solid black;}
 .fretboard tr.lastfret td { border-bottom:1px solid black;}
 a:visited { color: blue; }
+.spacer { margin-right: 15px; }
 @media print {
     #interface { display:none; }
     .fretboard {
@@ -109,11 +110,11 @@ function update_form_with_url_params(){
     for(var key in params){
         if (key == 'show_numbers'){
             $('#' + key).attr('checked', params[key] == 'true');
-        } else {
-            if (key != '')
-                $('#' + key).val(params[key]);
-        }
+    } else {
+        if (key != '')
+            $('#' + key).val(params[key]);
     }
+}
 }
 var generate = function(){
     var how_many = $('#how_many').val();
@@ -126,7 +127,7 @@ var generate = function(){
 
     // update link
     var href = create_link(how_many, inlay_variation, num_strings, frets_per_diagram, show_numbers, size_diagram);
-    $('#link_this').attr('href', href);
+    $('#input_link_this').val(href);
 
     if (frets_per_diagram < inlay_variation.length){
         inlay_variation = inlay_variation.substr(0, frets_per_diagram);
@@ -151,85 +152,88 @@ var generate = function(){
 $(function(){
     var translations = [
         ['Tiny', 'Bem Pequeno'],
-        ['Small', 'Pequeno'],
-        ['Medium', 'Médio'],
-        ['Large', 'Grande'],
-        ['X-Large', 'Bem Grande'],
-    ];
-    function fill_options(elem, options, defval){
-        // setup a select dropdown with options and default value
-        $.each(options, function(){
-            var html = $('<option value="' + this + '">' + this + '</option>');
-            if (this == defval) {
-                html.attr('selected', '1');
-            }
-            elem.append(html);
-        });
-    }
-    function list_range(start, end){
-        // create a list from a range
-        var arr = [];
-        for(var i = start; i <= end; i += 1){
-            arr.push(i);
-        }
-        return arr;
-    }
-    // setup controls with defaults
-    fill_options($('select#how_many'), list_range(1, 30), 5);
-    fill_options($('select#frets_per_diagram'), list_range(4, 16), 16);
-    fill_options($('select#num_strings'), list_range(4, 8), 6);
-    fill_options($('select#size_diagram'), ['Tiny', 'Small', 'Medium', 'Large', 'X-Large'], 'Small');
-    $('select#inlay_variation').append('<option value="----------------">No Inlay</option>');
-    $('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Variation 1</option>');
-    $('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Variation 2</option>');
-    $('#print_btn').click(function(){
-        window.print();
-    });
-    $('#help_btn').click(function(){
-        $('#help').show('fast');
-    });
-    $('.help_close_btn').click(function(){
-        $('#help').hide('fast');
-    });
-    $('#interface form input').change(generate);
-    $('#interface form select').change(generate);
+            ['Small', 'Pequeno'],
+                ['Medium', 'Médio'],
+                    ['Large', 'Grande'],
+                        ['X-Large', 'Bem Grande'],
+                        ];
+                        function fill_options(elem, options, defval){
+                            // setup a select dropdown with options and default value
+                            $.each(options, function(){
+                                var html = $('<option value="' + this + '">' + this + '</option>');
+                                             if (this == defval) {
+                                                 html.attr('selected', '1');
+                                             }
+                                             elem.append(html);
+                            });
+                        }
+                        function list_range(start, end){
+                            // create a list from a range
+                            var arr = [];
+                            for(var i = start; i <= end; i += 1){
+                                arr.push(i);
+                            }
+                            return arr;
+                        }
+                        // setup controls with defaults
+                        fill_options($('select#how_many'), list_range(1, 30), 5);
+                        fill_options($('select#frets_per_diagram'), list_range(4, 16), 16);
+                        fill_options($('select#num_strings'), list_range(4, 8), 6);
+                        fill_options($('select#size_diagram'), ['Tiny', 'Small', 'Medium', 'Large', 'X-Large'], 'Small');
+                                     $('select#inlay_variation').append('<option value="----------------">No Inlay</option>');
+                                     $('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Variation 1</option>');
+                                     $('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Variation 2</option>');
+                                     $('#print_btn').click(function(){
+                                         window.print();
+                                     });
+                                     $('#help_btn').click(function(){
+                                         $('#help').show('fast');
+                                     });
+                                     $('.help_close_btn').click(function(){
+                                         $('#help').hide('fast');
+                                     });
+                                     $('#interface form input').change(generate);
+                                     $('#interface form select').change(generate);
 
-    $('#toggleLanguage').toggle(function(){
-        var $this = $(this);
-        $this.html('English version');
-        $('.eng').hide();
-        $('.pt').show();
-    }, function(){
-        var $this = $(this);
-        $this.html('Versão em Português');
-        $('.eng').show();
-        $('.pt').hide();
-    });
-    $('#toggleAdvanced').toggle(function(){
-        $(this).addClass('active');
-        $('.advanced').show();
-    }, function(){
-        $(this).removeClass('active');
-        $('.advanced').hide();
-    });
-    $('.preset').click(function(){
-        var href = $(this).attr('href');
-        window.location.href = href;
-        update_form_with_url_params();
-        generate();
-    });
+                                     $('#toggleLanguage').toggle(function(){
+                                         var $this = $(this);
+                                         $this.html('English version');
+                                         $('.eng').hide();
+                                         $('.pt').show();
+                                     }, function(){
+                                         var $this = $(this);
+                                         $this.html('Versão em Português');
+                                         $('.eng').show();
+                                         $('.pt').hide();
+                                     });
+                                     $('#toggleAdvanced').toggle(function(){
+                                         $(this).addClass('active');
+                                         $('.advanced').show();
+                                     }, function(){
+                                         $(this).removeClass('active');
+                                         $('.advanced').hide();
+                                     });
+                                     $('.preset').click(function(){
+                                         var href = $(this).attr('href');
+                                         window.location.href = href;
+                                         update_form_with_url_params();
+                                         generate();
+                                     });
+                                     $('#input_link_this').click(function() {
+                                         $(this).select();
+                                     });
 
-    // generate for defaults
-    update_form_with_url_params();
-    generate();
+                                     // generate for defaults
+                                     update_form_with_url_params();
+                                 generate();
 
-    $(document).keyup(function(e) {
-        // hotkeys
-        var ESCAPE = 27;
-          if (e.keyCode == ESCAPE) {
-              $('#help').hide();
-          }
-    });
+                                 $(document).keyup(function(e) {
+                                     // hotkeys
+                                     var ESCAPE = 27;
+                                     if (e.keyCode == ESCAPE) {
+                                         $('#help').hide();
+                                     }
+                                 });
 });
 </script>
 </head>
@@ -275,85 +279,83 @@ $(function(){
                     <a href="javascript:void()" class="btn btn-info" id="toggleAdvanced">
                         <span class="eng">Show All Settings</span>
                         <span class="pt">Configurações Avançadas</span>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td><a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
-                        <span class="eng">Print diagram</span>
-                        <span class="pt">Imprimir diagrama</span>
-                </a></td>
-                <td>&nbsp;</td>
-                <td colspan="2"><a href="#" id="link_this">
-                        <span class="eng">Get link</span>
-                        <span class="pt">Obter Link</span>
-                </a></td>
-                <td>
-                    <a href="javascript:void(0)" id="help_btn" class="btn">
-                        <span class="eng">About</span>
-                        <span class="pt">Sobre</span>
-                    </a>
-                    <a href="javascript:void()" id="toggleLanguage">Versão em Português</a>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr class="advanced">
-                <td class="label">
-                    <span class="eng">How many diagrams?</span>
-                    <span class="pt">Quantos diagramas?</span>
-                </td>
-                <td><select id="how_many"></select></td>
-                <td class="label">
-                    <span class="eng">Show numbers?</span>
-                    <span class="pt">Mostrar números?</span>
-                </td>
-                <td><input type="checkbox" id="show_numbers" checked /></td>
-                <td class="label">
-                    <span class="eng">Inlay variation:</span>
-                    <span class="pt">Marcações:</span>
-                </td>
-                <td><select id="inlay_variation"></select></td>
-            </tr>
-            <tr class="advanced">
-                <td class="label">
-                    <span class="eng">How many strings?</span>
-                    <span class="pt">Quantas cordas?</span>
-                </td>
-                <td><select id="num_strings"></select></td>
-                <td class="label">
-                    <span class="eng">How many frets?</span>
-                    <span class="pt">Quantos trastes?</span>
-                </td>
-                <td><select id="frets_per_diagram"></select></td>
-                <td class="label">
-                    <span class="eng">Size:</span>
-                    <span class="pt">Tamanho:</span>
-                </td>
-                <td><select id="size_diagram"></select></td>
-            </tr>
-        </table>
-    </form>
-    <div id="help">
-        <div class="eng">
-            <p>This tool aims to help you to print diagrams of the fretboard of your guitar or bass, so you can write on them the chords, scales, modes or whatever it is that you're working on at the time.</p>
-            <p>Taking your time writing down the patterns helps you to memorize them quickly. Hopefully, soon you will be able to apply them in your playing. :-)</p>
-            <p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a> or, fork me at github: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
-            <sup>For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</sup>
-            <p>Thank you!</p>
+                    </td>
+                </tr>
+            </table>
+            <a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
+                <span class="eng">Print diagram</span>
+                <span class="pt">Imprimir diagrama</span>
+            </a>
+            <span class="spacer"></span>
+            <a href="javascript:void()" id="toggleLanguage">Versão em Português</a>
+            <a href="javascript:void(0)" id="help_btn" class="btn">
+                <span class="eng">About</span>
+                <span class="pt">Sobre</span>
+            </a>
+            <table>
+                <tr class="advanced">
+                    <td class="label">
+                        <span class="eng">How many diagrams?</span>
+                        <span class="pt">Quantos diagramas?</span>
+                    </td>
+                    <td><select id="how_many"></select></td>
+                    <td class="label">
+                        <span class="eng">Show numbers?</span>
+                        <span class="pt">Mostrar números?</span>
+                    </td>
+                    <td><input type="checkbox" id="show_numbers" checked /></td>
+                    <td class="label">
+                        <span class="eng">Inlay variation:</span>
+                        <span class="pt">Marcações:</span>
+                    </td>
+                    <td><select id="inlay_variation"></select></td>
+                </tr>
+                <tr class="advanced">
+                    <td class="label">
+                        <span class="eng">How many strings?</span>
+                        <span class="pt">Quantas cordas?</span>
+                    </td>
+                    <td><select id="num_strings"></select></td>
+                    <td class="label">
+                        <span class="eng">How many frets?</span>
+                        <span class="pt">Quantos trastes?</span>
+                    </td>
+                    <td><select id="frets_per_diagram"></select></td>
+                    <td class="label">
+                        <span class="eng">Size:</span>
+                        <span class="pt">Tamanho:</span>
+                    </td>
+                    <td><select id="size_diagram"></select></td>
+                </tr>
+                <tr class="advanced">
+                    <td colspan="6">
+                        <span class="eng">Link to this diagram:</span>
+                        <span class="pt">Link para esse diagrama:</span>
+                        <input type="text" id="input_link_this" style="width:300px" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div id="help">
+            <div class="eng">
+                <p>This tool aims to help you to print diagrams of the fretboard of your guitar or bass, so you can write on them the chords, scales, modes or whatever it is that you're working on at the time.</p>
+                <p>Taking your time writing down the patterns helps you to memorize them quickly. Hopefully, soon you will be able to apply them in your playing. :-)</p>
+                <p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a> or, fork me at github: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
+                <sup>For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</sup>
+                <p>Thank you!</p>
+            </div>
+            <div class="pt">
+                <p>Use esta ferramenta para imprimir diagramas do braço da sua guitarra ou baixo, para você usar nos seus estudos de acordes, escalas, modos ou seja lá o que for que você esteja estudando no momento.</p>
+                <p>Parando pra escrever num papel os padrões do braço ajuda a memorizá-los mais rapidamente, e logo você deve conseguir usá-los nas suas tocanças. :)</p>
+                <p>Caso tenha alguma pergunta, sugestão ou reclamação, mande-me um email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a>. O códito é aberto e pode ser obtido em: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
+                <sup>Para melhores resultados, use um navegador moderno como o <a href="http://www.getfirefox.com">Firefox</a> ou o <a href="http://www.google.com/chrome">Chrome</a>.</sup>
+                <p>Valeu!</p>
+            </div>
+            <p><a href="http://eljunior.wordpress.com">Elias Dorneles</a></p>
+            <div style="text-align:right"><a href="javascript:void(0)" class="btn btn-mini help_close_btn">Fechar</a></div>
         </div>
-        <div class="pt">
-            <p>Use esta ferramenta para imprimir diagramas do braço da sua guitarra ou baixo, para você usar nos seus estudos de acordes, escalas, modos ou seja lá o que for que você esteja estudando no momento.</p>
-            <p>Parando pra escrever num papel os padrões do braço ajuda a memorizá-los mais rapidamente, e logo você deve conseguir usá-los nas suas tocanças. :)</p>
-            <p>Caso tenha alguma pergunta, sugestão ou reclamação, mande-me um email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a>. O códito é aberto e pode ser obtido em: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
-            <sup>Para melhores resultados, use um navegador moderno como o <a href="http://www.getfirefox.com">Firefox</a> ou o <a href="http://www.google.com/chrome">Chrome</a>.</sup>
-            <p>Valeu!</p>
-        </div>
-        <p><a href="http://eljunior.wordpress.com">Elias Dorneles</a></p>
-        <div style="text-align:right"><a href="javascript:void(0)" class="btn btn-mini help_close_btn">Fechar</a></div>
     </div>
-</div>
-<div id="main">
-</div>
-</body>
-</html>
+    <div id="main">
+    </div>
+    </body>
+    </html>
