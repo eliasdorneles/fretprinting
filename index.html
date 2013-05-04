@@ -11,7 +11,17 @@ body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
 .fretboard tr td { width:18px; height:24px; padding:0; margin:0; font-size:12pt; text-align:center; border-top:1px solid #aaa; border-left:1px solid black; }
 .fretboard tr td.laststr { border-right:1px solid black;}
 .fretboard tr.lastfret td { border-bottom:1px solid black;}
-@media print { #interface { display:none; } }
+a:visited { color: blue; }
+@media print {
+    #interface { display:none; }
+    .fretboard {
+        page-break-inside: avoid;
+    }
+    @page {
+        /* Do not change - this affects the presets */
+        margin: 0.5cm;
+    }
+}
 #help { display:none; }
 .fretboard tr td.fretnumber { font-size:10px; border:0; width:5px; vertical-align:bottom; text-align:right; }
 
@@ -25,12 +35,12 @@ body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
 #help { width:460px; padding:15px; position:absolute; background-color:#dee; border:2px solid black; z-index:1; top:80px; left:50px; }
 #help p, #help sup { padding:3px; }
 a.btn { text-decoration: none; }
+.advanced { display: none; }
 .pt { display: none; }
 </style>
 <link media="all" href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script>
-// TODO: create some presets
 var fretboard = function(n_strings, inlay_repr, dot_mark, show_numbers){
     var fret = function(num_str, dotted, two){
         if (dotted){
@@ -180,7 +190,6 @@ $(function(){
     $('.help_close_btn').click(function(){
         $('#help').hide('fast');
     });
-    $('#generate').click(generate);
     $('#interface form input').change(generate);
     $('#interface form select').change(generate);
 
@@ -195,10 +204,31 @@ $(function(){
         $('.eng').show();
         $('.pt').hide();
     });
+    $('#toggleAdvanced').toggle(function(){
+        $(this).addClass('active');
+        $('.advanced').show();
+    }, function(){
+        $(this).removeClass('active');
+        $('.advanced').hide();
+    });
+    $('.preset').click(function(){
+        var href = $(this).attr('href');
+        window.location.href = href;
+        update_form_with_url_params();
+        generate();
+    });
 
     // generate for defaults
     update_form_with_url_params();
-generate();
+    generate();
+
+    $(document).keyup(function(e) {
+        // hotkeys
+        var ESCAPE = 27;
+          if (e.keyCode == ESCAPE) {
+              $('#help').hide();
+          }
+    });
 });
 </script>
 </head>
@@ -209,7 +239,68 @@ generate();
     <h2 class="pt">Configure e imprima diagramas para violão, guitarra e baixo</h2>
     <form>
         <table>
+            <tr class="basic">
+                <td colspan="5" style="width: 550px;">
+                    <strong>PRESETS:</strong>
+                    <br />
+                    <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=6&frets_per_diagram=14&show_numbers=true" class="preset">
+                        <span class="eng">6-Strings Guitar Fretboard</span>
+                        <span class="pt">Braço de violão/guitarra 6 cordas</span>
+                    </a>
+                    <br />
+                    <a href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true" class="preset">
+                        <span class="eng">4-String Bass Fretboard</span>
+                        <span class="pt">Braço de Baixo 4 cordas</span>
+                    </a>
+                    <br />
+                    <a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false" class="preset">
+                        <span class="eng">Guitar Chord Boxes</span>
+                        <span class="pt">Acordes violão/guitarra</span>
+                    </a>
+                    <br />
+                    <a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true" class="preset">
+                        <span class="eng">Guitar Fretboard - smaller size</span>
+                        <span class="pt">Braço de violão/guitarra 6 cordas - tamanho menor</span>
+                    </a>
+                    <br />
+                    <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false" class="preset">
+                        <span class="eng">5-Strings Bass Fretboard</span>
+                        <span class="pt">Braço de Baixo 5 cordas</span>
+                    </a>
+                </td>
+                <td>
+                    <a href="javascript:void()" class="btn btn-info" id="toggleAdvanced">
+                        <span class="eng">Show All Settings</span>
+                        <span class="pt">Configurações Avançadas</span>
+                </td>
+            </tr>
+        </table>
+        <table>
             <tr>
+                <td>&nbsp;</td>
+                <td><a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
+                        <span class="eng">Print diagram</span>
+                        <span class="pt">Imprimir diagrama</span>
+                </a></td>
+                <td><a href="index.html">
+                        <span class="eng">Reset</span>
+                        <span class="pt">Desfazer tudo</span>
+                </a></td>
+                <td colspan="2"><a href="#" id="link_this">
+                        <span class="eng">Get link</span>
+                        <span class="pt">Obter Link</span>
+                </a></td>
+                <td>
+                    <a href="javascript:void(0)" id="help_btn" class="btn">
+                        <span class="eng">About</span>
+                        <span class="pt">Sobre</span>
+                    </a>
+                    <a href="javascript:void()" id="toggleLanguage">Versão em Português</a>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr class="advanced">
                 <td class="label">
                     <span class="eng">How many diagrams?</span>
                     <span class="pt">Quantos diagramas?</span>
@@ -217,16 +308,16 @@ generate();
                 <td><select id="how_many"></select></td>
                 <td class="label">
                     <span class="eng">Show numbers?</span>
-                    <span class="pt">Mostrar números</span>
+                    <span class="pt">Mostrar números?</span>
                 </td>
                 <td><input type="checkbox" id="show_numbers" checked /></td>
                 <td class="label">
                     <span class="eng">Inlay variation:</span>
-                    <span class="pt">Marcações</span>
+                    <span class="pt">Marcações:</span>
                 </td>
                 <td><select id="inlay_variation"></select></td>
             </tr>
-            <tr>
+            <tr class="advanced">
                 <td class="label">
                     <span class="eng">How many strings?</span>
                     <span class="pt">Quantas cordas?</span>
@@ -242,27 +333,6 @@ generate();
                     <span class="pt">Tamanho:</span>
                 </td>
                 <td><select id="size_diagram"></select></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
-                        <span class="eng">Print</span>
-                        <span class="pt">Imprimir</span>
-                </a></td>
-                <td><a href="index.html">
-                        <span class="eng">Reset</span>
-                        <span class="pt">Desfazer tudo</span>
-                </a></td>
-                <td colspan="2"><a href="#" id="link_this">
-                        <span class="eng">Get link</span>
-                        <span class="pt">Obter Link</span>
-                </a></td>
-                <td><a href="javascript:void(0)" id="help_btn" class="btn">
-                        <span class="eng">About</span>
-                        <span class="pt">Sobre</span>
-                </a>
-                <a href="javascript:void()" id="toggleLanguage" class="btn btn-info">Versão em Português</a>
-            </td>
             </tr>
         </table>
     </form>
