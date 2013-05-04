@@ -1,7 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<title>Frets on Print</title>
+<meta charset="utf-8">
+<title>Fret Printing - Guitar Fretboard Diagrams</title>
 <style>
 * { margin:0; padding:0; border-spacing:0; }
 body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
@@ -22,8 +23,9 @@ body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
 #interface input { padding:0 4px; }
 #interface select { padding:0 4px; }
 #help { width:460px; padding:15px; position:absolute; background-color:#dee; border:2px solid black; z-index:1; top:80px; left:50px; }
-#help p { padding:3px; }
-#print_btn { text-decoration: none; }
+#help p, #help sup { padding:3px; }
+a.btn { text-decoration: none; }
+.pt { display: none; }
 </style>
 <link media="all" href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
@@ -136,6 +138,13 @@ var generate = function(){
     $('.fretboard tr td').css(css_size_style[size_diagram]);
 }
 $(function(){
+    var translations = [
+        ['Tiny', 'Bem Pequeno'],
+        ['Small', 'Pequeno'],
+        ['Medium', 'Médio'],
+        ['Large', 'Grande'],
+        ['X-Large', 'Bem Grande'],
+    ];
     function fill_options(elem, options, defval){
         // setup a select dropdown with options and default value
         $.each(options, function(){
@@ -166,14 +175,26 @@ $(function(){
         window.print();
     });
     $('#help_btn').click(function(){
-        $('#help').show();
+        $('#help').show('fast');
     });
-    $('#help_close_btn').click(function(){
-        $('#help').hide();
+    $('.help_close_btn').click(function(){
+        $('#help').hide('fast');
     });
     $('#generate').click(generate);
     $('#interface form input').change(generate);
     $('#interface form select').change(generate);
+
+    $('#toggleLanguage').toggle(function(){
+        var $this = $(this);
+        $this.html('English version');
+        $('.eng').hide();
+        $('.pt').show();
+    }, function(){
+        var $this = $(this);
+        $this.html('Versão em Português');
+        $('.eng').show();
+        $('.pt').hide();
+    });
 
     // generate for defaults
     update_form_with_url_params();
@@ -183,43 +204,86 @@ generate();
 </head>
 <body>
 <div id="interface">
-    <h1>Frets on Print</h1>
-    <h2>Setup and print your fretboard diagrams</h2>
+    <h1>Fret Printing</h1>
+    <h2 class="eng">Setup and print your fretboard diagrams</h2>
+    <h2 class="pt">Configure e imprima diagramas para violão, guitarra e baixo</h2>
+    <p style="text-align: right; width: 700px">
+        <a href="javascript:void()" id="toggleLanguage">Versão em Português</a>
+    </p>
     <form>
         <table>
             <tr>
-                <td class="label">How many diagrams?</td>
+                <td class="label">
+                    <span class="eng">How many diagrams?</span>
+                    <span class="pt">Quantos diagramas?</span>
+                </td>
                 <td><select id="how_many"></select></td>
-                <td class="label">Show numbers?</td>
+                <td class="label">
+                    <span class="eng">Show numbers?</span>
+                    <span class="pt">Mostrar números</span>
+                </td>
                 <td><input type="checkbox" id="show_numbers" checked /></td>
-                <td class="label">Inlay variation:</td>
+                <td class="label">
+                    <span class="eng">Inlay variation:</span>
+                    <span class="pt">Marcações</span>
+                </td>
                 <td><select id="inlay_variation"></select></td>
             </tr>
             <tr>
-                <td class="label">How many strings?</td>
+                <td class="label">
+                    <span class="eng">How many strings?</span>
+                    <span class="pt">Quantas cordas?</span>
+                </td>
                 <td><select id="num_strings"></select></td>
-                <td class="label">How many frets?</td>
+                <td class="label">
+                    <span class="eng">How many frets?</span>
+                    <span class="pt">Quantos trastes?</span>
+                </td>
                 <td><select id="frets_per_diagram"></select></td>
-                <td class="label">Size:</td>
+                <td class="label">
+                    <span class="eng">Size:</span>
+                    <span class="pt">Tamanho:</span>
+                </td>
                 <td><select id="size_diagram"></select></td>
             </tr>
             <tr>
                 <td></td>
-                <td><a href="javascript:void(0)" id="print_btn" class="btn btn-primary">Print</a></td>
-                <td><a href="index.html">Reset</a></td>
-                <td colspan="2"><a href="#" id="link_this">Link to diagram</a></td>
-                <td><a href="javascript:void(0)" id="help_btn">About</a></td>
+                <td><a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
+                        <span class="eng">Print</span>
+                        <span class="pt">Imprimir</span>
+                </a></td>
+                <td><a href="index.html">
+                        <span class="eng">Reset</span>
+                        <span class="pt">Desfazer tudo</span>
+                </a></td>
+                <td colspan="2"><a href="#" id="link_this">
+                        <span class="eng">Get link</span>
+                        <span class="pt">Obter Link</span>
+                </a></td>
+                <td><a href="javascript:void(0)" id="help_btn" class="btn">
+                        <span class="eng">About</span>
+                        <span class="pt">Sobre</span>
+                </a></td>
             </tr>
         </table>
     </form>
     <div id="help">
-        <p>This tool aims to help you to print diagrams of the fretboard of your guitar or bass, so you can write on them the chords, scales, modes, or whatever it is that you're working on at the time.</p>
-        <p>By taking your time writing down the patterns, without the distraction of the instrument in your hands, you will memorize them more quickly. Hopefully, you soon will be to apply them in your playing. :-)</p>
-        <p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a> or, fork me at github: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
-        <p>For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</p>
-        <p>Thank you!</p>
-        <p>Elias Dorneles</p>
-        <div style="text-align:right"><a href="javascript:void(0)" id="help_close_btn">Close</a></div>
+        <div class="eng">
+            <p>This tool aims to help you to print diagrams of the fretboard of your guitar or bass, so you can write on them the chords, scales, modes or whatever it is that you're working on at the time.</p>
+            <p>Taking your time writing down the patterns helps you to memorize them quickly. Hopefully, soon you will be able to apply them in your playing. :-)</p>
+            <p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a> or, fork me at github: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
+            <sup>For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</sup>
+            <p>Thank you!</p>
+        </div>
+        <div class="pt">
+            <p>Use esta ferramenta para imprimir diagramas do braço da sua guitarra ou baixo, para você usar nos seus estudos de acordes, escalas, modos ou seja lá o que for que você esteja estudando no momento.</p>
+            <p>Parando pra escrever num papel os padrões do braço ajuda a memorizá-los mais rapidamente, e logo você deve conseguir usá-los nas suas tocanças. :)</p>
+            <p>Caso tenha alguma pergunta, sugestão ou reclamação, mande-me um email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a>. O códito é aberto e pode ser obtido em: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
+            <sup>Para melhores resultados, use um navegador moderno como o <a href="http://www.getfirefox.com">Firefox</a> ou o <a href="http://www.google.com/chrome">Chrome</a>.</sup>
+            <p>Valeu!</p>
+        </div>
+        <p><a href="http://eljunior.wordpress.com">Elias Dorneles</a></p>
+        <div style="text-align:right"><a href="javascript:void(0)" class="btn btn-mini help_close_btn">Fechar</a></div>
     </div>
 </div>
 <div id="main">
