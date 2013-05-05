@@ -34,7 +34,10 @@ a:visited { color: blue; }
 /*#interface table tr td.label { padding-right:3px; padding-left: 15px; }*/
 #interface input { padding:0 4px; }
 #interface select { padding:0 4px; }
+#help { width:500px; position:absolute; z-index:1; top:80px; left:50px; border-width: 2px; line-height: 18px; }
+/*
 #help { width:460px; padding:15px; position:absolute; background-color:#dee; border:2px solid black; z-index:1; top:80px; left:50px; }
+ */
 #help p, #help sup { padding:3px; }
 a.btn { text-decoration: none; }
 .advanced { display: none; }
@@ -245,43 +248,35 @@ $(function(){
     <h2 class="eng">Setup and print your fretboard diagrams</h2>
     <h2 class="pt">Configure e imprima diagramas para violão, guitarra e baixo</h2>
     <form>
-        <table>
-            <tr class="basic">
-                <td colspan="5" style="width: 550px;">
-                    <strong>PRESETS:</strong>
-                    <br />
-                    <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=6&frets_per_diagram=14&show_numbers=true" class="preset">
-                        <span class="eng">6-Strings Guitar Fretboard</span>
-                        <span class="pt">Braço de violão/guitarra 6 cordas</span>
-                    </a>
-                    <br />
-                    <a href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true" class="preset">
-                        <span class="eng">4-String Bass Fretboard</span>
-                        <span class="pt">Braço de Baixo 4 cordas</span>
-                    </a>
-                    <br />
-                    <a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false" class="preset">
-                        <span class="eng">Guitar Chord Boxes</span>
-                        <span class="pt">Diagramas para Acordes violão/guitarra</span>
-                    </a>
-                    <br />
-                    <a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true" class="preset">
-                        <span class="eng">Guitar Fretboard - smaller size</span>
-                        <span class="pt">Braço de violão/guitarra 6 cordas - tamanho menor</span>
-                    </a>
-                    <br />
-                    <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false" class="preset">
-                        <span class="eng">5-Strings Bass Fretboard</span>
-                        <span class="pt">Braço de Baixo 5 cordas</span>
-                    </a>
-                </td>
-                <td>
-                    <a href="javascript:void()" class="btn btn-info" id="toggleAdvanced">
-                        <span class="eng">Show All Settings</span>
-                        <span class="pt">Configurações Avançadas</span>
-                    </td>
-                </tr>
-            </table>
+        <div>
+            <strong>PRESETS:</strong>
+            <br />
+            <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=6&frets_per_diagram=14&show_numbers=true" class="preset">
+                <span class="eng">6-Strings Guitar Fretboard</span>
+                <span class="pt">Braço de violão/guitarra 6 cordas</span>
+            </a>
+            <br />
+            <a href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true" class="preset">
+                <span class="eng">4-String Bass Fretboard</span>
+                <span class="pt">Braço de Baixo 4 cordas</span>
+            </a>
+            <br />
+            <a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false" class="preset">
+                <span class="eng">Guitar Chord Boxes</span>
+                <span class="pt">Diagramas para Acordes violão/guitarra</span>
+            </a>
+            <br />
+            <a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true" class="preset">
+                <span class="eng">Guitar Fretboard - smaller size</span>
+                <span class="pt">Braço de violão/guitarra 6 cordas - tamanho menor</span>
+            </a>
+            <br />
+            <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false" class="preset">
+                <span class="eng">5-Strings Bass Fretboard</span>
+                <span class="pt">Braço de Baixo 5 cordas</span>
+            </a>
+            <br />
+            <br />
             <a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
                 <span class="eng">Print diagram</span>
                 <span class="pt">Imprimir diagrama</span>
@@ -292,53 +287,62 @@ $(function(){
                 <span class="eng">About</span>
                 <span class="pt">Sobre</span>
             </a>
-            <table>
-                <tr class="advanced">
-                    <td class="label">
-                        <span class="eng">How many diagrams?</span>
-                        <span class="pt">Quantos diagramas?</span>
-                    </td>
-                    <td><select id="how_many"></select></td>
-                    <td class="label">
-                        <span class="eng">Show numbers?</span>
-                        <span class="pt">Mostrar números?</span>
-                    </td>
-                    <td><input type="checkbox" id="show_numbers" checked /></td>
-                    <td class="label">
-                        <span class="eng">Inlay variation:</span>
-                        <span class="pt">Marcações:</span>
-                    </td>
-                    <td><select id="inlay_variation"></select></td>
-                </tr>
-                <tr class="advanced">
-                    <td class="label">
-                        <span class="eng">How many strings?</span>
-                        <span class="pt">Quantas cordas?</span>
-                    </td>
-                    <td><select id="num_strings"></select></td>
-                    <td class="label">
-                        <span class="eng">How many frets?</span>
-                        <span class="pt">Quantos trastes?</span>
-                    </td>
-                    <td><select id="frets_per_diagram"></select></td>
-                    <td class="label">
-                        <span class="eng">Size:</span>
-                        <span class="pt">Tamanho:</span>
-                    </td>
-                    <td><select id="size_diagram"></select></td>
-                </tr>
-                <tr class="advanced">
-                    <td colspan="6">
-                        <span class="eng">Link to this diagram:</span>
-                        <span class="pt">Link para esse diagrama:</span>
-                        <input type="text" id="input_link_this" style="width:300px" />
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <div id="help">
+            <span class="spacer"></span>
+            <a href="javascript:void()" class="btn btn-info" id="toggleAdvanced">
+                <span class="eng">Show All Settings</span>
+                <span class="pt">Configurações Avançadas</span>
+            </a>
+        </div>
+        <br />
+        <table>
+            <tr class="advanced">
+                <td class="label">
+                    <span class="eng">How many diagrams?</span>
+                    <span class="pt">Quantos diagramas?</span>
+                </td>
+                <td><select id="how_many"></select></td>
+                <td class="label">
+                    <span class="eng">Show numbers?</span>
+                    <span class="pt">Mostrar números?</span>
+                </td>
+                <td><input type="checkbox" id="show_numbers" checked /></td>
+                <td class="label">
+                    <span class="eng">Inlay variation:</span>
+                    <span class="pt">Marcações:</span>
+                </td>
+                <td><select id="inlay_variation"></select></td>
+            </tr>
+            <tr class="advanced">
+                <td class="label">
+                    <span class="eng">How many strings?</span>
+                    <span class="pt">Quantas cordas?</span>
+                </td>
+                <td><select id="num_strings"></select></td>
+                <td class="label">
+                    <span class="eng">How many frets?</span>
+                    <span class="pt">Quantos trastes?</span>
+                </td>
+                <td><select id="frets_per_diagram"></select></td>
+                <td class="label">
+                    <span class="eng">Size:</span>
+                    <span class="pt">Tamanho:</span>
+                </td>
+                <td><select id="size_diagram"></select></td>
+            </tr>
+            <tr class="advanced">
+                <td colspan="6">
+                    <span class="eng">Link to this diagram:</span>
+                    <span class="pt">Link para esse diagrama:</span>
+                    <input type="text" id="input_link_this" style="width:300px" />
+                </td>
+            </tr>
+        </table>
+    </form>
+        <div id="help" class="alert alert-info">
+            <button type="button" class="close help_close_btn" data-dismiss="alert">&times;</button>
+            <p><strong>Fret Printing</strong></p>
             <div class="eng">
-                <p>This tool aims to help you to print diagrams of the fretboard of your guitar or bass, so you can write on them the chords, scales, modes or whatever it is that you're working on at the time.</p>
+                <p>Use this little tool to print diagrams for the fretboard of your instrument (guitar, bass, violin, etc), so you can write on them the patterns for chords, scales, modes or whatever it is that you're working on.</p>
                 <p>Taking your time writing down the patterns helps you to memorize them quickly. Hopefully, soon you will be able to apply them in your playing. :-)</p>
                 <p>Should you have any questions, suggestions of improvement, feel free to drop me an email: <a href="mailto:eliasdorneles@gmail.com">eliasdorneles@gmail.com</a> or, fork me at github: <a href="https://github.com/eliasdorneles/fretprinting">https://github.com/eliasdorneles/fretprinting</a></p>
                 <sup>For the best results, use a modern browser like <a href="http://www.getfirefox.com">Firefox</a> or <a href="http://www.google.com/chrome">Chrome</a>.</sup>
@@ -351,8 +355,11 @@ $(function(){
                 <sup>Para melhores resultados, use um navegador moderno como o <a href="http://www.getfirefox.com">Firefox</a> ou o <a href="http://www.google.com/chrome">Chrome</a>.</sup>
                 <p>Valeu!</p>
             </div>
-            <p><a href="http://eljunior.wordpress.com">Elias Dorneles</a></p>
-            <div style="text-align:right"><a href="javascript:void(0)" class="btn btn-mini help_close_btn">Fechar</a></div>
+            <p>-- <a href="http://eljunior.wordpress.com">Elias Dorneles</a></p>
+            <div style="text-align:right"><a href="javascript:void(0)" class="btn btn-mini help_close_btn">
+                    <span class="eng">Close</span>
+                    <span class="pt">Fechar</span>
+            </a></div>
         </div>
     </div>
     <div id="main">
