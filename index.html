@@ -7,7 +7,7 @@
 * { margin:0; padding:0; border-spacing:0; }
 h1 a, h1 a:visited, h1 a:focus { color: black !important; text-decoration: none; }
 body { font-family:Arial,Helvetica,sans-serif; font-size:14px; }
-.fretboard { float:left; margin:11px; }
+.fretboard { float:left; margin:1cm; }
 .fretboard tr { padding:0; margin:0; }
 .fretboard tr td { width:18px; height:24px; padding:0; margin:0; font-size:12pt; text-align:center; border-top:1px solid #aaa; border-left:1px solid black; }
 .fretboard tr td.laststr { border-right:1px solid black;}
@@ -46,7 +46,7 @@ a.btn { text-decoration: none; }
 <link media="all" href="css/bootstrap.min.css" type="text/css" rel="stylesheet" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script>
-var fretboard = function(n_strings, inlay_repr, dot_mark, show_numbers){
+var createFretboard = function(n_strings, inlay_repr, dot_mark, show_numbers){
     var fret = function(num_str, dotted, two){
         if (dotted){
             var place = two ? 1 : (num_str / 2 - 1) | 0; // cast-to-int HACK!
@@ -127,6 +127,7 @@ var generate = function(){
     var frets_per_diagram = $('select#frets_per_diagram').val();
     var show_numbers = $('#show_numbers').is(':checked');
     var size_diagram = $('select#size_diagram').val();
+    var margin = $('select#fretboard_margin').val() + 'cm';
 
     // update link
     var href = create_link(how_many, inlay_variation, num_strings, frets_per_diagram, show_numbers, size_diagram);
@@ -140,7 +141,7 @@ var generate = function(){
     $('#main').empty();
     // draw fretboards
     for(var i = 0; i < how_many; i++){
-        $('#main').append(fretboard(num_strings, inlay_variation, dot_mark, show_numbers));
+        $('#main').append(createFretboard(num_strings, inlay_variation, dot_mark, show_numbers));
     }
     // adjust size
     var css_size_style = {
@@ -151,6 +152,7 @@ var generate = function(){
         'X-Large':  { width: '40px', height: '56px'},
     }
     $('.fretboard tr td').css(css_size_style[size_diagram]);
+    $('.fretboard').css('margin', margin);
 }
 $(function(){
     var translations = [
@@ -183,6 +185,7 @@ $(function(){
     fill_options($('select#frets_per_diagram'), list_range(4, 16), 14);
     fill_options($('select#num_strings'), list_range(4, 8), 6);
     fill_options($('select#size_diagram'), ['Tiny', 'Small', 'Medium', 'Large', 'X-Large'], 'Large');
+    fill_options($('select#fretboard_margin'), [0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.5, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3.0], 1);
     $('select#inlay_variation').append('<option value="----------------">No Inlay</option>');
     $('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Variation 1</option>');
     $('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Variation 2</option>');
@@ -332,10 +335,16 @@ $(function(){
                 <td><select id="size_diagram"></select></td>
             </tr>
             <tr class="advanced">
-                <td colspan="6">
+                <td colspan="4">
                     <span class="eng">Link to this diagram:</span>
                     <span class="pt">Link para esse diagrama:</span>
                     <input type="text" id="input_link_this" style="width:300px" />
+                </td>
+                <td class="label">
+                    Margins:
+                </td>
+                <td>
+                    <select id="fretboard_margin"></select>cm
                 </td>
             </tr>
         </table>
