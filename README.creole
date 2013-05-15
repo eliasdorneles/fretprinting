@@ -1,9 +1,12 @@
-= Fretboard Diagrams =
+= Print your Fretboard Diagrams =
 
-This tool aims to help the guitar student to print diagrams of the guitar fretboard.
-This is something I made to myself, so I could print a few diagrams and draw the shapes for the chords, scales, modes, or whatever.
-Feel free to drop an email with suggestions for improvement.
+This tool helps you to print blank diagrams of the fretboard of your guitar or bass.
+Any fretboard instrument, really!
 
-Home: http://fretprinting.appspot.com
-Dev-home: https://github.com/eliasdorneles/fretprinting
+You can use it to print a few diagrams and use them to draw the shapes for chords, scales, modes or whatever it is that you want to do.
+
+If you have any questions, feel free to drop me an email: <eliasdorneles@gmail.com>
+
+- Home: http://fretprinting.appspot.com
+- Project development: https://github.com/eliasdorneles/fretprinting
 
