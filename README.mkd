@@ -1,4 +1,5 @@
-= Print your Fretboard Diagrams =
+Print your Fretboard Diagrams
+-----------------------------
 
 This tool helps you to print blank diagrams of the fretboard of your guitar or bass.
 Any fretboard instrument, really!
