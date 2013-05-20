@@ -67,17 +67,23 @@
 .hero-unit ul li:nth-child(even) {
     margin-top:20px;
 }
+
 .hero-unit ul li.guitar {
-    background-image:url('images/guitar.jpg');
-    background-position:0 90px;
+
+    /*TODO to be optmized to download a smaller image*/
+    background-image: url('images/lespaul.jpg');
+    background-position: 10px -30px;
+    background-size: 310px;
     -webkit-animation-delay:1s;
     -moz-animation-delay:1s;
     -o-animation-delay:1s;
     animation-delay:1s;
 }
 .hero-unit ul li.bass {
-    background-image:url('images/bass.jpg');
-    background-position:0 90px;
+    /*TODO to be optmized to download a smaller image*/
+    background-image: url('http://bassmusicianmagazine.com/wp-content/uploads/2010/08/Manson-E-Bass-Angle-WEB.jpg');
+    background-position: -5px 91px;
+    background-size: 240px;
     -webkit-animation-delay:1.5s;
     -moz-animation-delay:1.5s;
     -o-animation-delay:1.5s;
