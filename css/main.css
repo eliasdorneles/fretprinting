@@ -51,21 +51,6 @@ a:visited {
     margin-right: 15px;
 }
 
-@media print {
-    #interface {
-        display: none;
-    }
-
-    .fretboard {
-        page-break-inside: avoid;
-    }
-
-    @page {
-        /* this affects the presets */
-        margin: 1cm;
-    }
-}
-
 #help {
     display: none;
 }

@@ -1,0 +1,12 @@
+#interface {
+    display: none;
+}
+
+.fretboard {
+    page-break-inside: avoid;
+}
+
+@page {
+    /* this affects the presets */
+    margin: 1cm;
+}
