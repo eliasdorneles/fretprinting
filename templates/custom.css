@@ -248,3 +248,32 @@
     padding-left: 60px;
     padding-top: 40px;
 }
+
+
+.logo
+{
+    color:white;
+}
+
+.logo-fret
+{
+    font-weight: bold;
+    color: #EEE;
+    font-size: 32px;
+}
+
+.frets-icon
+{
+    height: 25px;
+}
+
+.logo-link:hover
+{
+    text-decoration: none;
+}
+
+.logo-container
+{
+    vertical-align: middle;
+    display: inline;
+}
