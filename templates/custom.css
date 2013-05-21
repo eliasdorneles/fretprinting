@@ -70,8 +70,7 @@
 
 .hero-unit ul li.guitar {
 
-    /*TODO to be optmized to download a smaller image*/
-    background-image: url('images/lespaul.jpg');
+    background-image: url('images/noimage.jpg');
     background-position: 10px -30px;
     background-size: 310px;
     -webkit-animation-delay:1s;
@@ -80,8 +79,7 @@
     animation-delay:1s;
 }
 .hero-unit ul li.bass {
-    /*TODO to be optmized to download a smaller image*/
-    background-image: url('http://bassmusicianmagazine.com/wp-content/uploads/2010/08/Manson-E-Bass-Angle-WEB.jpg');
+    background-image: url('noimage');
     background-position: -5px 91px;
     background-size: 240px;
     -webkit-animation-delay:1.5s;
@@ -225,6 +223,7 @@
 }
 .tab-content {
     padding:45px;
+    min-height: 600px;
 }
 .tab-content .pull-right {
     margin-right:20px;
@@ -282,4 +281,25 @@
 {
     vertical-align: middle;
     display: inline;
+}
+
+.top-border{
+    border-top: 1px solid #ddd;
+}
+
+.under-nav-tab{
+    border-bottom: 1px solid #ddd;
+    padding: 25px 30px;
+}
+
+.inline{
+    display: inline;
+}
+
+
+
+input[type="text"]
+{
+    height: 37px;
+    margin-bottom: 9px;
 }
