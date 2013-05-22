@@ -6,6 +6,10 @@
     page-break-inside: avoid;
 }
 
+.hidden-print {
+    display: none !important;
+}
+
 @page {
     /* this affects the presets */
     margin: 1cm;

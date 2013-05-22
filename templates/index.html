@@ -21,7 +21,7 @@
     <link href="custom.css" rel="stylesheet" media="screen"/>
 
     <link media="all" href="../css/main.css" type="text/css" rel="stylesheet"/>
-    <!--<link media="print" href="../css/print.css" type="text/css" rel="stylesheet" />-->
+    <link media="print" href="../css/print.css" type="text/css" rel="stylesheet"/>
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
     <script type="text/javascript" src="../js/app.js"></script>
@@ -36,7 +36,7 @@
     different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>
     to experience this site.</p><![endif]-->
 <div class="page-content-wrapper">
-<header class="header">
+<header class="header hidden-print">
     <div class="row">
         <div class="span3">
             <a class="logo-link" href="">
@@ -67,7 +67,7 @@
 </header>
 
 
-<div class="hero-unit">
+<div class="hero-unit hidden-print">
     <div class="container">
         <h1>Because frets should be easier to print.</h1>
 
@@ -110,8 +110,8 @@
 
     <div class="row">
         <div class="span12 white-panel no-padding">
-            <h3 class="tab-title">Fretboard Presets</h3>
-            <ul class="nav nav-tabs">
+            <h3 class="tab-title hidden-print">Fretboard Presets</h3>
+            <ul class="nav nav-tabs hidden-print">
                 <li class="active"><a href="" class="gc-icon agency-icon">Guitar</a></li>
                 <li><a href="" class="gc-icon higher-ed-icon">Guitar chord boxes</a></li>
                 <li><a href="" class="gc-icon higher-ed-icon">Guitar (small)</a></li>
@@ -120,7 +120,7 @@
             </ul>
             <!-- End tabs -->
 
-            <div class="button-text-panel under-nav-tab">
+            <div class="button-text-panel under-nav-tab hidden-print">
                 <h3>Link:</h3>
 
                 <div class="btn btn-large">Edit</div>
@@ -135,7 +135,7 @@
                 <!-- End .tab-content -->
             </div>
 
-            <div class="button-text-panel top-border">
+            <div class="button-text-panel top-border hidden-print">
 
                 <h3>Link:</h3>
                 <input type="text" class="span4 input-text"
@@ -146,7 +146,7 @@
             </div>
 
 
-            <div>
+            <div class="hidden-print">
                 <strong>PRESETS:</strong>
                 <br/>
                 <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8"
@@ -253,7 +253,7 @@
 </div>
 <!-- page-content-wrapper -->
 
-<footer class="footer">
+<footer class="footer hidden-print">
     <div class="container">
         <div class="row">
             <div class="span12">
