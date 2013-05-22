@@ -1,11 +1,13 @@
-
 <!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-
 
 
     <meta charset="utf-8">
@@ -15,145 +17,271 @@
 
 
     <meta name="viewport" content="width=device-width">
-    <link href="bootstrap.css" rel="stylesheet" media="screen" />
-    <link href="custom.css" rel="stylesheet" media="screen" />
+    <link href="bootstrap.css" rel="stylesheet" media="screen"/>
+    <link href="custom.css" rel="stylesheet" media="screen"/>
 
-    <link rel="shortcut icon"  type="image/x-icon" href="images/frets.ico">
+    <link media="all" href="../css/main.css" type="text/css" rel="stylesheet"/>
+    <!--<link media="print" href="../css/print.css" type="text/css" rel="stylesheet" />-->
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+
+    <link rel="shortcut icon" type="image/x-icon" href="images/frets.ico">
 
 </head>
 <body>
 
 
-<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+<!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a
+    different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>
+    to experience this site.</p><![endif]-->
 <div class="page-content-wrapper">
-    <header class="header">
-        <div class="row">
-            <div class="span3">
-                <a class="logo-link" href="">
-                    <img class="frets-icon" src="images/frets.ico"/>
-                    <h1 class="logo-container">
-                        <span class="logo" >
+<header class="header">
+    <div class="row">
+        <div class="span3">
+            <a class="logo-link" href="">
+                <img class="frets-icon" src="images/frets.ico"/>
+
+                <h1 class="logo-container">
+                        <span class="logo">
                             <span class="logo-fret">Fret</span>Printer
                         </span>
-                    </h1>
-                </a>
+                </h1>
+            </a>
+        </div>
+
+        <div class="menu span9 pull-right">
+            <ul class="menu-list">
+
+                <li class="menu-item">
+                    <a href="About">About</a>
+                </li>
+
+                <li class="menu-item highlight-item">
+                    <a href="">Get Started Now</a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</header>
+
+
+<div class="hero-unit">
+    <div class="container">
+        <h1>Because frets should be easier to print.</h1>
+
+        <h2>Checkout this amazing tool designed for you.</h2>
+
+        <ul class="row ">
+            <li class="span3 guitar float-up">
+                <p>Guitar</p>
+
+                <p>6 strings guitar fretboard.</p>
+            </li>
+
+            <li class="span3 bass float-up">
+                <p>Bass</p>
+
+                <p>4 strings bass fret board</p>
+            </li>
+
+            <li class="span3 banjo float-up">
+                <p>Banjo</p>
+
+                <p>Blah blah blha about banjo ans stuff</p>
+            </li>
+
+            <li class="span3 more float-up">
+                <p>And More</p>
+
+                <p>Create you own fretboard.</p>
+            </li>
+        </ul>
+
+        <div class="row get-started-now">
+            <a href="" class="btn btn-large btn-warning getting-started-btn">Get Started Now</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="row">
+        <div class="span12 white-panel no-padding">
+            <h3 class="tab-title">Fretboard Presets</h3>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="" class="gc-icon agency-icon">Guitar</a></li>
+                <li><a href="" class="gc-icon higher-ed-icon">Guitar chord boxes</a></li>
+                <li><a href="" class="gc-icon higher-ed-icon">Guitar (small)</a></li>
+                <li><a href="" class="gc-icon enterprise-icon">Bass</a></li>
+                <li><a href="" class="gc-icon higher-ed-icon">Bass(5)</a></li>
+            </ul>
+            <!-- End tabs -->
+
+            <div class="button-text-panel under-nav-tab">
+                <h3>Link:</h3>
+
+                <div class="btn btn-large">Edit</div>
+                <div href="signup" class="btn btn-large btn-warning">Download</div>
             </div>
 
-            <div class="menu span9 pull-right">
-                <ul class="menu-list">
+            <div class="tab-content">
+                <div class="span5">
+                    <div id="main">
+                    </div>
+                </div>
+                <!-- End .tab-content -->
+            </div>
 
-                    <li class="menu-item">
-                        <a href="About">About</a>
-                    </li>
+            <div class="button-text-panel top-border">
 
-                    <li class="menu-item highlight-item">
-                        <a href="">Get Started Now</a>
-                    </li>
+                <h3>Link:</h3>
+                <input type="text" class="span4 input-text"
+                       value="http://fretprinting.appspot.com/#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8">
 
+                <div class="btn btn-large">Edit</div>
+                <div href="signup" class="btn btn-large btn-warning">Download</div>
+            </div>
+
+
+            <div>
+                <strong>PRESETS:</strong>
+                <br/>
+                <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8"
+                   class="preset">
+                    <span class="eng">6-Strings Guitar Fretboard</span>
+                    <span class="pt">Braço de violão/guitarra 6 cordas</span>
+                </a>
+                <br/>
+                <a href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.4"
+                   class="preset">
+                    <span class="eng">4-String Bass Fretboard</span>
+                    <span class="pt">Braço de Baixo 4 cordas</span>
+                </a>
+                <br/>
+                <a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false&fretboard_margin=0.2"
+                   class="preset">
+                    <span class="eng">Guitar Chord Boxes</span>
+                    <span class="pt">Diagramas para Acordes violão/guitarra</span>
+                </a>
+                <br/>
+                <a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true&fretboard_margin=0.2"
+                   class="preset">
+                    <span class="eng">Guitar Fretboard - smaller size</span>
+                    <span class="pt">Braço de violão/guitarra 6 cordas - tamanho menor</span>
+                </a>
+                <br/>
+                <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false&fretboard_margin=0.4"
+                   class="preset">
+                    <span class="eng">5-Strings Bass Fretboard</span>
+                    <span class="pt">Braço de Baixo 5 cordas</span>
+                </a>
+                <br/>
+                <br/>
+                <a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
+                    <span class="eng">Print diagram</span>
+                    <span class="pt">Imprimir diagrama</span>
+                </a>
+                <span class="spacer"></span>
+                <a href="javascript:void(0)" id="toggleLanguage">Versão em Português</a>
+                <a href="javascript:void(0)" id="help_btn" class="btn">
+                    <span class="eng">About</span>
+                    <span class="pt">Sobre</span>
+                </a>
+                <span class="spacer"></span>
+                <a href="javascript:void(0)" class="btn btn-info" id="toggleAdvanced">
+                    <span class="eng">Show All Settings</span>
+                    <span class="pt">Configurações Avançadas</span>
+                </a>
+            </div>
+            <br/>
+            <table id="interface">
+                <tr class="advanced">
+                    <td class="label">
+                        <span class="eng">How many diagrams?</span>
+                        <span class="pt">Quantos diagramas?</span>
+                    </td>
+                    <td><select id="how_many"></select></td>
+                    <td class="label">
+                        <label for="show_numbers">
+                            <span class="eng">Show numbers?</span>
+                            <span class="pt">Mostrar números?</span>
+                            <input type="checkbox" id="show_numbers" checked/>
+                        </label>
+                    </td>
+                    <td></td>
+                    <td class="label">
+                        <span class="eng">Inlay variation:</span>
+                        <span class="pt">Marcações:</span>
+                    </td>
+                    <td><select id="inlay_variation"></select></td>
+                </tr>
+                <tr class="advanced">
+                    <td class="label">
+                        <span class="eng">How many strings?</span>
+                        <span class="pt">Quantas cordas?</span>
+                    </td>
+                    <td><select id="num_strings"></select></td>
+                    <td class="label">
+                        <span class="eng">How many frets?</span>
+                        <span class="pt">Quantos trastes?</span>
+                    </td>
+                    <td><select id="frets_per_diagram"></select></td>
+                    <td class="label">
+                        <span class="eng">Size:</span>
+                        <span class="pt">Tamanho:</span>
+                    </td>
+                    <td><select id="size_diagram"></select></td>
+                </tr>
+                <tr class="advanced">
+                    <td class="label">
+                        <span class="eng">Margins:</span>
+                        <span class="pt">Margens:</span>
+                    </td>
+                    <td><select id="fretboard_margin"></select>cm</td>
+                    <td colspan="4">
+                        <span class="eng">Link to this diagram:</span>
+                        <span class="pt">Link para esse diagrama:</span>
+                        <input type="text" id="input_link_this" style="width:300px"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- page-content-wrapper -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="span12">
+                <a class="logo-link" href="">
+                    <img class="frets-icon" src="images/frets.ico"/>
+
+                    <h1 class="logo-container">
+                            <span class="logo">
+                                <span class="logo-fret">Fret</span>Printer
+                            </span>
+                    </h1>
+                </a>
+
+                <p>Because frets should be easier to print.</p>
+            </div>
+        </div>
+        <div class="row links-horizontal">
+            <div class="span12">
+                <ul>
+                    <li>Created and designed by</li>
+                    <li><a href="http://twitter.com/mgleandro">Leandro</a></li>
+                    <li><a href="http://twitter.com/eliasnaotemtwitter">Elias</a></li>
                 </ul>
             </div>
         </div>
-    </header>
-
-
-    <div class="hero-unit">
-        <div class="container">
-            <h1>Because frets should be easier to print.</h1>
-            <h2>Checkout this amazing tool designed for you.</h2>
-
-            <ul class="row ">
-                <li class="span3 guitar float-up">
-                    <p>Guitar</p>
-                    <p>6 strings guitar fretboard.</p>
-                </li>
-
-                <li class="span3 bass float-up">
-                    <p>Bass</p>
-                    <p>4 strings bass fret board</p>
-                </li>
-
-                <li class="span3 banjo float-up">
-                    <p>Banjo</p>
-                    <p>Blah blah blha about banjo ans stuff</p>
-                </li>
-
-                <li class="span3 more float-up">
-                    <p>And More</p>
-                    <p>Create you own fretboard.</p>
-                </li>
-            </ul>
-
-            <div class="row get-started-now">
-                <a href="" class="btn btn-large btn-warning getting-started-btn">Get Started Now</a>
-            </div>
-        </div>
+        <p>Copyright is a lie. All rights and stuff are meaningless. Thank you for using. Buy us an Acai =P</p>
     </div>
-
-
-    <div class="container">
-
-        <div class="row">
-            <div class="span12 white-panel no-padding">
-
-                <h3 class="tab-title">Fretboard Presets</h3>
-                <ul class="nav nav-tabs">
-                    <li class="active"><a href="" class="gc-icon agency-icon">Guitar</a></li>
-                    <li><a href="" class="gc-icon higher-ed-icon">Guitar chord boxes</a></li>
-                    <li><a href="" class="gc-icon higher-ed-icon">Guitar (small)</a></li>
-                    <li><a href="" class="gc-icon enterprise-icon">Bass</a></li>
-                    <li><a href=""  class="gc-icon higher-ed-icon">Bass(5)</a></li>
-                </ul> <!-- End tabs -->
-
-                <div class="button-text-panel under-nav-tab">
-                    <h3>Link:</h3>
-                    <div class="btn btn-large">Edit</div>
-                    <div href="signup" class="btn btn-large btn-warning">Download</div>
-                </div>
-
-                <div class="tab-content">
-                    <div class="span5">Frets go here</div> <!-- End .tab-content -->
-                </div>
-
-                <div class="button-text-panel top-border">
-
-
-                    <h3>Link:</h3>
-                    <input type="text" class="span4 input-text" value="http://fretprinting.appspot.com/#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8">
-                    <div class="btn btn-large">Edit</div>
-                    <div href="signup" class="btn btn-large btn-warning">Download</div>
-                </div>
-
-            </div>
-        </div>
-    </div> <!-- page-content-wrapper -->
-
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="span12">
-                    <a class="logo-link" href="">
-                        <img class="frets-icon" src="images/frets.ico"/>
-                        <h1 class="logo-container">
-                            <span class="logo" >
-                                <span class="logo-fret">Fret</span>Printer
-                            </span>
-                        </h1>
-                    </a>
-                    <p>Because frets should be easier to print.</p>
-                </div>
-            </div>
-            <div class="row links-horizontal">
-                <div class="span12">
-                    <ul>
-                        <li>Created and designed by</li>
-                        <li><a href="http://twitter.com/mgleandro">Leandro</a></li>
-                        <li><a href="http://twitter.com/eliasehgayzinho">Elias</a></li>
-                    </ul>
-                </div>
-            </div>
-            <p>Copyright is a lie. All rights and stuff are meaningless. Thank you for using. Buy us an Acai =P</p>
-        </div>
-    </footer>
+</footer>
 
 </div>
 

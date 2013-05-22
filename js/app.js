@@ -161,8 +161,8 @@ $(function () {
     $('.help_close_btn').click(function () {
         $('#help').hide('fast');
     });
-    $('#interface form input').change(generate);
-    $('#interface form select').change(generate);
+    $('#interface input').change(generate);
+    $('#interface select').change(generate);
 
     $('#toggleLanguage').toggle(function () {
         var $this = $(this);

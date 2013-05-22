@@ -1,17 +1,7 @@
-* {
+.fretboard * {
     margin: 0;
     padding: 0;
     border-spacing: 0;
-}
-
-h1 a, h1 a:visited, h1 a:focus {
-    color: black !important;
-    text-decoration: none;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
 }
 
 .fretboard {
@@ -43,10 +33,6 @@ body {
     border-bottom: 1px solid black;
 }
 
-a:visited {
-    color: blue;
-}
-
 .spacer {
     margin-right: 15px;
 }
@@ -63,31 +49,6 @@ a:visited {
     text-align: right;
 }
 
-/* make-it-pretty stuff */
-#interface {
-    padding: 10px;
-}
-
-#interface h2 {
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #555;
-}
-
-#interface table tr td {
-    padding: 3px;
-    padding-right: 15px;
-}
-
-/*#interface table tr td.label { padding-right:3px; padding-left: 15px; }*/
-#interface input {
-    padding: 0 4px;
-}
-
-#interface select {
-    padding: 0 4px;
-}
-
 #help {
     width: 500px;
     position: absolute;
@@ -98,15 +59,8 @@ a:visited {
     line-height: 18px;
 }
 
-/*
-#help { width:460px; padding:15px; position:absolute; background-color:#dee; border:2px solid black; z-index:1; top:80px; left:50px; }
- */
 #help p, #help sup {
     padding: 3px;
-}
-
-a.btn {
-    text-decoration: none;
 }
 
 .advanced {
