@@ -38,19 +38,19 @@
 <div class="page-content-wrapper">
 <header class="header hidden-print">
     <div class="row">
-        <div class="span3">
+        <div class="span4">
             <a class="logo-link" href="">
                 <img class="frets-icon" src="images/frets.ico"/>
 
                 <h1 class="logo-container">
                         <span class="logo">
-                            <span class="logo-fret">Fret</span>Printer
+                            <span class="logo-fret">Fretboard</span>Printer
                         </span>
                 </h1>
             </a>
         </div>
 
-        <div class="menu span9 pull-right">
+        <div class="menu span8 pull-right">
             <ul class="menu-list">
 
                 <li class="menu-item">
@@ -125,6 +125,109 @@
 
                 <div class="btn btn-large">Edit</div>
                 <div href="signup" class="btn btn-large btn-warning">Download</div>
+
+                <div class="hidden-print">
+                    <strong>PRESETS:</strong>
+                    <br/>
+                    <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8"
+                       class="preset">
+                        <span class="eng">6-Strings Guitar Fretboard</span>
+                        <span class="pt">Braço de violão/guitarra 6 cordas</span>
+                    </a>
+                    <br/>
+                    <a href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.4"
+                       class="preset">
+                        <span class="eng">4-String Bass Fretboard</span>
+                        <span class="pt">Braço de Baixo 4 cordas</span>
+                    </a>
+                    <br/>
+                    <a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false&fretboard_margin=0.2"
+                       class="preset">
+                        <span class="eng">Guitar Chord Boxes</span>
+                        <span class="pt">Diagramas para Acordes violão/guitarra</span>
+                    </a>
+                    <br/>
+                    <a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true&fretboard_margin=0.2"
+                       class="preset">
+                        <span class="eng">Guitar Fretboard - smaller size</span>
+                        <span class="pt">Braço de violão/guitarra 6 cordas - tamanho menor</span>
+                    </a>
+                    <br/>
+                    <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false&fretboard_margin=0.4"
+                       class="preset">
+                        <span class="eng">5-Strings Bass Fretboard</span>
+                        <span class="pt">Braço de Baixo 5 cordas</span>
+                    </a>
+                    <br/>
+                    <br/>
+                    <a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
+                        <span class="eng">Print diagram</span>
+                        <span class="pt">Imprimir diagrama</span>
+                    </a>
+                    <span class="spacer"></span>
+                    <a href="javascript:void(0)" id="toggleLanguage">Versão em Português</a>
+                    <a href="javascript:void(0)" id="help_btn" class="btn">
+                        <span class="eng">About</span>
+                        <span class="pt">Sobre</span>
+                    </a>
+                    <span class="spacer"></span>
+                    <a href="javascript:void(0)" class="btn btn-info" id="toggleAdvanced">
+                        <span class="eng">Show All Settings</span>
+                        <span class="pt">Configurações Avançadas</span>
+                    </a>
+                </div>
+                <br>
+                <table id="interface">
+                    <tr class="advanced">
+                        <td class="label">
+                            <span class="eng">How many diagrams?</span>
+                            <span class="pt">Quantos diagramas?</span>
+                        </td>
+                        <td><select id="how_many"></select></td>
+                        <td class="label">
+                            <label for="show_numbers">
+                                <span class="eng">Show numbers?</span>
+                                <span class="pt">Mostrar números?</span>
+                                <input type="checkbox" id="show_numbers" checked/>
+                            </label>
+                        </td>
+                        <td></td>
+                        <td class="label">
+                            <span class="eng">Inlay variation:</span>
+                            <span class="pt">Marcações:</span>
+                        </td>
+                        <td><select id="inlay_variation"></select></td>
+                    </tr>
+                    <tr class="advanced">
+                        <td class="label">
+                            <span class="eng">How many strings?</span>
+                            <span class="pt">Quantas cordas?</span>
+                        </td>
+                        <td><select id="num_strings"></select></td>
+                        <td class="label">
+                            <span class="eng">How many frets?</span>
+                            <span class="pt">Quantos trastes?</span>
+                        </td>
+                        <td><select id="frets_per_diagram"></select></td>
+                        <td class="label">
+                            <span class="eng">Size:</span>
+                            <span class="pt">Tamanho:</span>
+                        </td>
+                        <td><select id="size_diagram"></select></td>
+                    </tr>
+                    <tr class="advanced">
+                        <td class="label">
+                            <span class="eng">Margins:</span>
+                            <span class="pt">Margens:</span>
+                        </td>
+                        <td><select id="fretboard_margin"></select>cm</td>
+                        <td colspan="4">
+                            <span class="eng">Link to this diagram:</span>
+                            <span class="pt">Link para esse diagrama:</span>
+                            <input type="text" id="input_link_this" style="width:300px"/>
+                        </td>
+                    </tr>
+                </table>
             </div>
 
             <div class="tab-content">
@@ -144,110 +247,6 @@
                 <div class="btn btn-large">Edit</div>
                 <div href="signup" class="btn btn-large btn-warning">Download</div>
             </div>
-
-
-            <div class="hidden-print">
-                <strong>PRESETS:</strong>
-                <br/>
-                <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8"
-                   class="preset">
-                    <span class="eng">6-Strings Guitar Fretboard</span>
-                    <span class="pt">Braço de violão/guitarra 6 cordas</span>
-                </a>
-                <br/>
-                <a href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.4"
-                   class="preset">
-                    <span class="eng">4-String Bass Fretboard</span>
-                    <span class="pt">Braço de Baixo 4 cordas</span>
-                </a>
-                <br/>
-                <a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false&fretboard_margin=0.2"
-                   class="preset">
-                    <span class="eng">Guitar Chord Boxes</span>
-                    <span class="pt">Diagramas para Acordes violão/guitarra</span>
-                </a>
-                <br/>
-                <a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true&fretboard_margin=0.2"
-                   class="preset">
-                    <span class="eng">Guitar Fretboard - smaller size</span>
-                    <span class="pt">Braço de violão/guitarra 6 cordas - tamanho menor</span>
-                </a>
-                <br/>
-                <a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false&fretboard_margin=0.4"
-                   class="preset">
-                    <span class="eng">5-Strings Bass Fretboard</span>
-                    <span class="pt">Braço de Baixo 5 cordas</span>
-                </a>
-                <br/>
-                <br/>
-                <a href="javascript:void(0)" id="print_btn" class="btn btn-primary">
-                    <span class="eng">Print diagram</span>
-                    <span class="pt">Imprimir diagrama</span>
-                </a>
-                <span class="spacer"></span>
-                <a href="javascript:void(0)" id="toggleLanguage">Versão em Português</a>
-                <a href="javascript:void(0)" id="help_btn" class="btn">
-                    <span class="eng">About</span>
-                    <span class="pt">Sobre</span>
-                </a>
-                <span class="spacer"></span>
-                <a href="javascript:void(0)" class="btn btn-info" id="toggleAdvanced">
-                    <span class="eng">Show All Settings</span>
-                    <span class="pt">Configurações Avançadas</span>
-                </a>
-            </div>
-            <br/>
-            <table id="interface">
-                <tr class="advanced">
-                    <td class="label">
-                        <span class="eng">How many diagrams?</span>
-                        <span class="pt">Quantos diagramas?</span>
-                    </td>
-                    <td><select id="how_many"></select></td>
-                    <td class="label">
-                        <label for="show_numbers">
-                            <span class="eng">Show numbers?</span>
-                            <span class="pt">Mostrar números?</span>
-                            <input type="checkbox" id="show_numbers" checked/>
-                        </label>
-                    </td>
-                    <td></td>
-                    <td class="label">
-                        <span class="eng">Inlay variation:</span>
-                        <span class="pt">Marcações:</span>
-                    </td>
-                    <td><select id="inlay_variation"></select></td>
-                </tr>
-                <tr class="advanced">
-                    <td class="label">
-                        <span class="eng">How many strings?</span>
-                        <span class="pt">Quantas cordas?</span>
-                    </td>
-                    <td><select id="num_strings"></select></td>
-                    <td class="label">
-                        <span class="eng">How many frets?</span>
-                        <span class="pt">Quantos trastes?</span>
-                    </td>
-                    <td><select id="frets_per_diagram"></select></td>
-                    <td class="label">
-                        <span class="eng">Size:</span>
-                        <span class="pt">Tamanho:</span>
-                    </td>
-                    <td><select id="size_diagram"></select></td>
-                </tr>
-                <tr class="advanced">
-                    <td class="label">
-                        <span class="eng">Margins:</span>
-                        <span class="pt">Margens:</span>
-                    </td>
-                    <td><select id="fretboard_margin"></select>cm</td>
-                    <td colspan="4">
-                        <span class="eng">Link to this diagram:</span>
-                        <span class="pt">Link para esse diagrama:</span>
-                        <input type="text" id="input_link_this" style="width:300px"/>
-                    </td>
-                </tr>
-            </table>
         </div>
     </div>
 </div>
@@ -262,7 +261,7 @@
 
                     <h1 class="logo-container">
                             <span class="logo">
-                                <span class="logo-fret">Fret</span>Printer
+                                <span class="logo-fret">Fretboard</span>Printer
                             </span>
                     </h1>
                 </a>
