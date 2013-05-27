@@ -152,9 +152,12 @@ $(function () {
     $('select#inlay_variation').append('<option value="----------------">No Inlay</option>');
     $('select#inlay_variation').append('<option value="--.-.-.-.--:--.-" selected>Variation 1</option>');
     $('select#inlay_variation').append('<option value="--.-.-.--.-:--.-">Variation 2</option>');
-    $('#print_btn').click(function () {
+
+    $('.print-action').click(function (e) {
+        e.preventDefault();
         window.print();
     });
+
     $('#help_btn').click(function () {
         $('#help').show('fast');
     });
