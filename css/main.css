@@ -20,6 +20,7 @@
     padding: 0;
     margin: 0;
     font-size: 12pt;
+    font-family: monospace !important;
     text-align: center;
     border-top: 1px solid #aaa;
     border-left: 1px solid black;
