@@ -185,12 +185,8 @@ $(function () {
         $(this).removeClass('active');
         $('.advanced').hide();
     });
-    $('.preset').click(function () {
-        var href = $(this).attr('href');
-        window.location.href = href;
-        update_form_with_url_params();
-        generate();
-    });
+
+
     $('#input_link_this').click(function () {
         $(this).select();
     });
@@ -205,4 +201,32 @@ $(function () {
             $('#help').hide();
         }
     });
+});
+
+$(document).ready(function()
+{
+    var body = $(document.body);
+
+    body.on('activate',".activatable", function()
+    {
+        var activatable = $(this);
+        var listHolder = activatable.closest(".activatable-container");
+
+        listHolder.find(".activatable").removeClass("active");
+        activatable.addClass("active");
+    });
+
+    body.on('click','.preset', function ()
+    {
+        var preset = $(this);
+        var presetContainer = $(this).closest('.activatable');
+        var href = preset.attr('href');
+
+        presetContainer.trigger('activate');
+
+        window.location.href = href;
+        update_form_with_url_params();
+        generate();
+    });
+
 });
