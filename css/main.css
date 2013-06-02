@@ -26,11 +26,11 @@
     border-left: 1px solid black;
 }
 
-.fretboard tr td.laststr {
+.fretboard tr td:last-child {
     border-right: 1px solid black;
 }
 
-.fretboard tr.lastfret td {
+.fretboard tr:last-child td {
     border-bottom: 1px solid black;
 }
 

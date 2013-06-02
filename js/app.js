@@ -15,7 +15,7 @@ var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
                 fret_html += "<td>" + dot_mark + "</td>";
                 place = doubleDotted ? (numBoxes - 2) : place;
             } else {
-                fret_html += (i == (numBoxes - 1)) ? '<td class="laststr">&nbsp;</td>' : '<td>&nbsp;</td>';
+                fret_html += '<td>&nbsp;</td>';
             }
         }
         fret_html += "</tr>";
@@ -26,14 +26,15 @@ var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
         '.': fret(n_strings, '.'),
         ':': fret(n_strings, ':')
     }
+    var createNumberBox = function (number, visible) {
+        return '<td class="fretnumber" style="visibility: ' + (visible ? 'visible' : 'hidden') + '">' + number + '</td>';
+    }
     var fretboard_elem = $('<table class="fretboard"></table>');
-    var numbers_style = show_numbers ? '' : ' style="visibility:hidden"';
+
+    // create a fretboard
     for (var i = 0; i < inlay_repr.length; i++) {
         var e = $(fret_for_repr[inlay_repr[i]]);
-        if (i == inlay_repr.length - 1) {
-            e.attr('class', 'lastfret');
-        }
-        e.prepend('<td class="fretnumber"' + numbers_style + '>' + (i + 1) + '</td>');
+        e.prepend(createNumberBox(i + 1, show_numbers));
         fretboard_elem.append(e);
     }
     return fretboard_elem;
@@ -68,10 +69,9 @@ function update_form_with_url_params() {
     // TODO: validate input?
     for (var key in params) {
         if (key == 'show_numbers') {
-            $('#' + key).attr('checked', params[key] == 'true');
+            $('#' + key).prop('checked', params[key] == 'true');
         } else {
             if (key) {
-                console.log('set ' + key + ':' + params[key]);
                 $('#' + key).val(params[key]);
             }
         }
