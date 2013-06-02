@@ -109,20 +109,12 @@ var generate = function () {
         'Small': { width: '22px', height: '30px'},
         'Medium': { width: '28px', height: '38px'},
         'Large': { width: '36px', height: '50px'},
-        'X-Large': { width: '40px', height: '56px'},
+        'X-Large': { width: '40px', height: '56px'}
     }
     $('.fretboard tr td').css(css_size_style[size_diagram]);
     $('.fretboard').css('margin', margin + 'cm');
 }
 $(function () {
-    var translations = [
-        ['Tiny', 'Bem Pequeno'],
-        ['Small', 'Pequeno'],
-        ['Medium', 'Médio'],
-        ['Large', 'Grande'],
-        ['X-Large', 'Bem Grande'],
-    ];
-
     function fill_options(elem, options, defval) {
         // setup a select dropdown with options and default value
         $.each(options, function () {
@@ -167,17 +159,6 @@ $(function () {
     $('#interface input').change(generate);
     $('#interface select').change(generate);
 
-    $('#toggleLanguage').toggle(function () {
-        var $this = $(this);
-        $this.html('English version');
-        $('.eng').hide();
-        $('.pt').show();
-    }, function () {
-        var $this = $(this);
-        $this.html('Versão em Português');
-        $('.eng').show();
-        $('.pt').hide();
-    });
     $('#toggleAdvanced').toggle(function () {
         $(this).addClass('active');
         $('.advanced').show();
