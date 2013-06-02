@@ -1,15 +1,21 @@
 var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
-    var fret = function (num_str, dotted, two) {
-        if (dotted) {
-            var place = two ? 1 : (num_str / 2 - 1) | 0; // cast-to-int HACK!
+    var fret = function (numStrings, repr) {
+        // a common fret is represented by '-' or undefined
+        // '.' is a dotted fret with one dot '.'
+        // ':' is a double dotted fret
+        var isDotted = repr == '.' || repr == ':';
+        var doubleDotted = repr == ':';
+        if (isDotted) {
+            var place = doubleDotted ? 1 : (numStrings / 2 - 1) | 0; // cast-to-int HACK!
         }
         var fret_html = "<tr>";
-        for (var i = 0; i < num_str - 1; i++) {
-            if (dotted && i == place) {
+        var numBoxes = numStrings - 1; // for N strings, we need to draw N-1 cell boxes
+        for (var i = 0; i < numBoxes; i++) {
+            if (isDotted && i == place) {
                 fret_html += "<td>" + dot_mark + "</td>";
-                place = two ? num_str - 3 : place;
+                place = doubleDotted ? (numBoxes - 2) : place;
             } else {
-                fret_html += i == num_str - 2 ? '<td class="laststr">&nbsp;</td>' : '<td>&nbsp;</td>';
+                fret_html += (i == (numBoxes - 1)) ? '<td class="laststr">&nbsp;</td>' : '<td>&nbsp;</td>';
             }
         }
         fret_html += "</tr>";
@@ -17,8 +23,8 @@ var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
     }
     var fret_for_repr = {
         '-': fret(n_strings),
-        '.': fret(n_strings, true),
-        ':': fret(n_strings, true, true)
+        '.': fret(n_strings, '.'),
+        ':': fret(n_strings, ':')
     }
     var fretboard_elem = $('<table class="fretboard"></table>');
     var numbers_style = show_numbers ? '' : ' style="visibility:hidden"';
@@ -73,7 +79,7 @@ function update_form_with_url_params() {
 }
 var generate = function () {
     var how_many = $('#how_many').val();
-    var dot_mark = '&#x25cf;';
+    var dot_mark = '&#x25cf;'; // the dot mark character
     var inlay_variation = $('#inlay_variation').val();
     var num_strings = $('select#num_strings').val();
     var frets_per_diagram = $('select#frets_per_diagram').val();
@@ -184,12 +190,10 @@ $(function () {
     });
 });
 
-$(document).ready(function()
-{
+$(document).ready(function () {
     var body = $(document.body);
 
-    body.on('activate',".activatable", function()
-    {
+    body.on('activate', ".activatable", function () {
         var activatable = $(this);
         var listHolder = activatable.closest(".activatable-container");
 
@@ -197,8 +201,7 @@ $(document).ready(function()
         activatable.addClass("active");
     });
 
-    body.on('click','.preset', function ()
-    {
+    body.on('click', '.preset', function () {
         var preset = $(this);
         var presetContainer = $(this).closest('.activatable');
         var href = preset.attr('href');
