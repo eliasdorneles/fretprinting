@@ -303,3 +303,62 @@ input[type="text"]
     height: 37px;
     margin-bottom: 9px;
 }
+
+.main-actions
+{
+    text-align: right;
+}
+
+
+.settings-panel
+{
+    text-align: center;
+}
+
+.settings-card
+{
+    background-color: #fff;
+    padding: 30px;
+    height: 265px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -o-border-radius: 8px;
+    border-radius: 8px;
+    background-repeat: no-repeat;
+    border: 1px solid #CCC;
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.settings-list
+{
+    list-style: none;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0;
+    width: 215px;
+}
+
+.settings-label
+{
+    display: inline-block;
+    text-align: right;
+    width: 100px;
+    color: #666;
+    font-size: 15px;
+    vertical-align: middle;
+    padding-right: 20px;
+}
+
+.card-title
+{
+    font-size: 20px;
+    color: #333;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+.settings-input
+{
+  display:inline-block;
+}
