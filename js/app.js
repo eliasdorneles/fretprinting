@@ -1,5 +1,5 @@
 var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
-    var fret = function (numStrings, repr) {
+    var createFret = function (numStrings, repr) {
         // a common fret is represented by '-' or undefined
         // '.' is a dotted fret with one dot '.'
         // ':' is a double dotted fret
@@ -8,8 +8,9 @@ var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
         if (isDotted) {
             var place = doubleDotted ? 1 : (numStrings / 2 - 1) | 0; // cast-to-int HACK!
         }
+        // for N strings, we need to draw N-1 cell boxes
+        var numBoxes = numStrings - 1;
         var fret_html = "<tr>";
-        var numBoxes = numStrings - 1; // for N strings, we need to draw N-1 cell boxes
         for (var i = 0; i < numBoxes; i++) {
             if (isDotted && i == place) {
                 fret_html += "<td>" + dot_mark + "</td>";
@@ -22,9 +23,9 @@ var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
         return fret_html;
     }
     var fret_for_repr = {
-        '-': fret(n_strings),
-        '.': fret(n_strings, '.'),
-        ':': fret(n_strings, ':')
+        '-': createFret(n_strings),
+        '.': createFret(n_strings, '.'),
+        ':': createFret(n_strings, ':')
     }
     var createNumberBox = function (number, visible) {
         return '<td class="fretnumber" style="visibility: ' + (visible ? 'visible' : 'hidden') + '">' + number + '</td>';
@@ -33,9 +34,10 @@ var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
 
     // create a fretboard
     for (var i = 0; i < inlay_repr.length; i++) {
-        var e = $(fret_for_repr[inlay_repr[i]]);
-        e.prepend(createNumberBox(i + 1, show_numbers));
-        fretboard_elem.append(e);
+        var fretType = inlay_repr[i];
+        var $fret = $(fret_for_repr[fretType]);
+        $fret.prepend(createNumberBox(i + 1, show_numbers));
+        fretboard_elem.append($fret);
     }
     return fretboard_elem;
 }
@@ -77,7 +79,7 @@ function update_form_with_url_params() {
         }
     }
 }
-var generate = function () {
+var generateAllFretboards = function () {
     var how_many = $('#how_many').val();
     var dot_mark = '&#x25cf;'; // the dot mark character
     var inlay_variation = $('#inlay_variation').val();
@@ -99,15 +101,18 @@ var generate = function () {
     var href = create_link(link_params);
     $('#input_link_this').val(href);
 
-    if (frets_per_diagram < inlay_variation.length) {
-        inlay_variation = inlay_variation.substr(0, frets_per_diagram);
-    }
 
-    // empty container
-    $('#main').empty();
-    // draw fretboards
+    // This gets the fretboard representation ready with the right size
+    //     '-----' is a fretboard with 5 frets and no marks
+    //     '--.--:' is a fretboard with 6 frets, a dot in the third fret and double dots in the last fret
+    var fretboardRepr = inlay_variation.substr(0, frets_per_diagram);
+
+    // empty container and redraw fretboards
+    var $main = $('#main');
+    $main.empty();
+    var $fretboard = createFretboard(num_strings, fretboardRepr, dot_mark, show_numbers);
     for (var i = 0; i < how_many; i++) {
-        $('#main').append(createFretboard(num_strings, inlay_variation, dot_mark, show_numbers));
+        $main.append($fretboard.clone());
     }
     // adjust size
     var css_size_style = {
@@ -121,6 +126,7 @@ var generate = function () {
     $('.fretboard').css('margin', margin + 'cm');
 }
 $(function () {
+    // this will load on dom-ready
     function fill_options(elem, options, defval) {
         // setup a select dropdown with options and default value
         $.each(options, function () {
@@ -162,8 +168,8 @@ $(function () {
     $('.help_close_btn').click(function () {
         $('#help').hide('fast');
     });
-    $('#interface input').change(generate);
-    $('#interface select').change(generate);
+    $('.settings-panel input').change(generateAllFretboards);
+    $('.settings-panel select').change(generateAllFretboards);
 
     $('#toggleAdvanced').toggle(function () {
         $(this).addClass('active');
@@ -178,9 +184,9 @@ $(function () {
         $(this).select();
     });
 
-    // generate for defaults
+    // generate with defaults
     update_form_with_url_params();
-    generate();
+    generateAllFretboards();
     $(document).keyup(function (e) {
         // hotkeys
         var ESCAPE = 27;
@@ -191,6 +197,8 @@ $(function () {
 });
 
 $(document).ready(function () {
+    // isso provavelmente deveria estar ali em cima,
+    // onde jah tem mais coisa carregando no dom-ready :)
     var body = $(document.body);
 
     body.on('activate', ".activatable", function () {
@@ -210,7 +218,6 @@ $(document).ready(function () {
 
         window.location.href = href;
         update_form_with_url_params();
-        generate();
+        generateAllFretboards();
     });
-
 });
