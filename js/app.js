@@ -184,6 +184,12 @@ $(function () {
         $(this).select();
     });
 
+    $('.getting-started-btn').click(function (e) {
+        scrollTo(0, 1011);
+        e.preventDefault();
+        return false;
+    })
+
     // generate with defaults
     update_form_with_url_params();
     generateAllFretboards();
