@@ -1,3 +1,15 @@
+
+var fretboardComponent = {
+    activate:function(event){
+        alert('hello');
+    },
+    two:function(){
+        alert('hello');
+    }
+
+
+}
+
 var createFretboard = function (n_strings, inlay_repr, dot_mark, show_numbers) {
     var createFret = function (numStrings, repr) {
         // a common fret is represented by '-' or undefined
@@ -112,7 +124,7 @@ var generateAllFretboards = function () {
     $main.empty();
     var $fretboard = createFretboard(num_strings, fretboardRepr, dot_mark, show_numbers);
     for (var i = 0; i < how_many; i++) {
-        $main.append($fretboard.clone());
+        $('#main').append(createFretboard(num_strings, inlay_variation, dot_mark, show_numbers));
     }
     // adjust size
     var css_size_style = {
@@ -207,7 +219,8 @@ $(document).ready(function () {
     // onde jah tem mais coisa carregando no dom-ready :)
     var body = $(document.body);
 
-    body.on('activate', ".activatable", function () {
+    body.on('activate',".activatable", function(ev)
+    {
         var activatable = $(this);
         var listHolder = activatable.closest(".activatable-container");
 
@@ -215,7 +228,8 @@ $(document).ready(function () {
         activatable.addClass("active");
     });
 
-    body.on('click', '.preset', function () {
+    body.on('click','.preset', function ()
+    {
         var preset = $(this);
         var presetContainer = $(this).closest('.activatable');
         var href = preset.attr('href');
