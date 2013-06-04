@@ -124,7 +124,7 @@ var generateAllFretboards = function () {
     $main.empty();
     var $fretboard = createFretboard(num_strings, fretboardRepr, dot_mark, show_numbers);
     for (var i = 0; i < how_many; i++) {
-        $('#main').append(createFretboard(num_strings, inlay_variation, dot_mark, show_numbers));
+        $main.append($fretboard.clone());
     }
     // adjust size
     var css_size_style = {
