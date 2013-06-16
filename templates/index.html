@@ -116,22 +116,11 @@
         <div class="span12 white-panel no-padding">
             <h3 class="tab-title hidden-print">Fretboard Presets</h3>
             <ul class="nav nav-tabs hidden-print activatable-container">
-                <li class="active activatable"><a
-                        href="#!?howMany=3&inlay=Variation 1&size=Medium&numStrings=6&numFrets=14&showNumbers=true&margin=0.8"
-                        class="preset gc-icon agency-icon">Guitar</a></li>
-                <li class="activatable"><a
-                        href="#!?howMany=9&inlay=No Inlay&size=Large&numStrings=6&numFrets=5&showNumbers=false&margin=0.2"
-                        class="preset gc-icon higher-ed-icon">Guitar chord boxes</a></li>
-                <li class="activatable"><a
-                        href="#!?howMany=8&inlay=Variation 1&size=Small&numStrings=6&numFrets=16&showNumbers=true&margin=0.2"
-                        class="preset gc-icon higher-ed-icon">Guitar (small)</a></li>
-                <li class="activatable"><a
-                        href="#!?howMany=4&inlay=Variation 1&size=Large&numStrings=4&numFrets=14&showNumbers=true&margin=0.4"
-                        class="preset gc-icon enterprise-icon">Bass</a></li>
-                <li class="activatable"><a
-                        href="#!?howMany=3&inlay=Variation 1&size=Large&numStrings=5&numFrets=14&showNumbers=false&margin=0.4"
-                        class="preset gc-icon higher-ed-icon">Bass(5)</a></li>
+                <li class="activatable" ng-repeat="(name, preset) in presets">
+                    <a href="" ng-click="activatePreset(preset)">{{ name }}</a>
+                </li>
             </ul>
+
             <!-- End tabs -->
             <div class="button-text-panel main-actions hidden-print">
                 <div class="btn btn-large">Share</div>
@@ -190,7 +179,7 @@
                         </li>
                         <li>
                             <label class="settings-label">Inlay</label>
-                            <select ng-model="inlayVariation" ng-options="k for (k, v) in inlayOptions"
+                            <select ng-model="inlay" ng-options="k for (k, v) in inlayOptions"
                                     class="span1 settings-input">
                             </select>
                         </li>

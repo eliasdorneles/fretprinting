@@ -25,7 +25,7 @@ App.filter('dotmark', function () {
 
 function FretboardsCntl($scope, $location) {
 
-    var params = (function (search) {
+    var getUrlParams = function (search) {
         return {
             howMany: search.howMany ? parseInt(search.howMany) : undefined,
             numFrets: search.numFrets ? parseInt(search.numFrets) : undefined,
@@ -35,8 +35,7 @@ function FretboardsCntl($scope, $location) {
             inlay: search.inlay,
             size: search.size
         }
-    })($location.search());
-
+    };
     $scope.range = function (start, end, step) {
         step = (step == undefined) ? 1 : step;
         var list = [];
@@ -46,22 +45,14 @@ function FretboardsCntl($scope, $location) {
         return list;
     }
 
-    $scope.howMany = params.howMany || 3;
-    $scope.showNumbers = params.showNumbers != undefined ? params.showNumbers : true;
-    $scope.numStrings = params.numStrings || 6;
-    $scope.numFrets = params.numFrets || 14;
-
-    $scope.margin = params.margin || 0.8;
     $scope.marginOptions = [0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.5, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3.0];
-
     $scope.inlayOptions = {
         'No Inlay': '----------------',
         'Variation 1': '--.-.-.-.--:--.-',
         'Variation 2': '--.-.-.--.-:--.-'
     }
-    $scope.inlayVariation = $scope.inlayOptions[params.inlay || 'Variation 1'];
 
-    var sizeOptions = {
+    $scope.sizeOptions = {
         'Tiny': {
             style: { width: '18px', height: '24px' }
         },
@@ -78,15 +69,79 @@ function FretboardsCntl($scope, $location) {
             style: { width: '40px', height: '56px' }
         }
     };
-    $scope.size = sizeOptions[params.size || 'Medium'];
-    $scope.sizeOptions = sizeOptions;
 
+    function setupFretboards(params) {
+        $scope.howMany = params.howMany || 3;
+        $scope.showNumbers = params.showNumbers != undefined ? params.showNumbers : true;
+        $scope.numStrings = params.numStrings || 6;
+        $scope.numFrets = params.numFrets || 14;
+        $scope.margin = params.margin || 0.8;
+        $scope.inlay = $scope.inlayOptions[params.inlay || 'Variation 1'];
+        $scope.size = $scope.sizeOptions[params.size || 'Medium'];
+    }
+
+    var params = getUrlParams($location.search());
+    setupFretboards(params);
+
+    $scope.presets = {
+        'Guitar': {
+            howMany: 3,
+            inlay: 'Variation 1',
+            size: 'Medium',
+            numStrings: 6,
+            numFrets: 14,
+            showNumbers: true,
+            margin: 0.8
+        },
+        'Chord Boxes': {
+            howMany: 9,
+            inlay: 'No Inlay',
+            size: 'Large',
+            numStrings: 6,
+            numFrets: 5,
+            showNumbers: false,
+            margin: 0.2
+        },
+        'Guitar (small)': {
+            howMany: 8,
+            inlay: 'Variation 1',
+            size: 'Small',
+            numStrings: 6,
+            numFrets: 16,
+            showNumbers: true,
+            margin: 0.2
+        },
+        'Bass': {
+            howMany: 4,
+            inlay: 'Variation 1',
+            size: 'Large',
+            numStrings: 4,
+            numFrets: 14,
+            showNumbers: true,
+            margin: 0.4
+        },
+        'Bass 5 Strings': {
+            howMany: 3,
+            inlay: 'Variation 1',
+            size: 'Large',
+            numStrings: 5,
+            numFrets: 14,
+            showNumbers: false,
+            margin: 0.4
+        }
+    };
+
+    $scope.activatePreset = function (preset) {
+        console.log('preset', preset);
+        setupFretboards(preset);
+        // TODO: activate link
+    }
 
     $scope.fretboardRepr = function () {
         // This gets a fretboard representation ready with just about the right size
         //     '-----' is a fretboard with 5 frets and no marks
         //     '--.--:' is a fretboard with 6 frets, a dot in the third fret and double dots in the last fret
-        var inlay = $scope.inlayVariation;
+        var inlay = $scope.inlay;
         var representation = inlay.substr(0, $scope.numFrets);
         return  representation.split('');
     }
@@ -101,7 +156,7 @@ function FretboardsCntl($scope, $location) {
             margin: $scope.margin + 'cm'
         };
     }
-    $scope.getStarted = function(){
+    $scope.getStarted = function () {
         scrollTo(0, 1011);
     }
 }
