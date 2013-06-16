@@ -23,13 +23,15 @@
     <link media="all" href="../css/main.css" type="text/css" rel="stylesheet"/>
     <link media="print" href="../css/print.css" type="text/css" rel="stylesheet"/>
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.1/jquery.min.js"></script>-->
+    <!--<script type="text/javascript" src="../js/app.js"></script>-->
 
     <link rel="shortcut icon" type="image/x-icon" href="images/frets.ico">
 
 </head>
-<body>
+<body ng-app="FretsApp">
 
 
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a
@@ -108,17 +110,27 @@
 </div>
 
 
-<div class="container">
+<div class="container" ng-controller="FretboardsCntl">
 
     <div class="row">
         <div class="span12 white-panel no-padding">
             <h3 class="tab-title hidden-print">Fretboard Presets</h3>
             <ul class="nav nav-tabs hidden-print activatable-container">
-                <li class="active activatable"><a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8" class="preset gc-icon agency-icon">Guitar</a></li>
-                <li class="activatable"><a href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false&fretboard_margin=0.2" class="preset gc-icon higher-ed-icon">Guitar chord boxes</a></li>
-                <li class="activatable"><a href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true&fretboard_margin=0.2" class="preset gc-icon higher-ed-icon">Guitar (small)</a></li>
-                <li class="activatable"><a href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.4" class="preset gc-icon enterprise-icon">Bass</a></li>
-                <li class="activatable"><a href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false&fretboard_margin=0.4" class="preset gc-icon higher-ed-icon">Bass(5)</a></li>
+                <li class="active activatable"><a
+                        href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Medium&num_strings=6&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.8"
+                        class="preset gc-icon agency-icon">Guitar</a></li>
+                <li class="activatable"><a
+                        href="#how_many=9&inlay_variation=----------------&size_diagram=Large&num_strings=6&frets_per_diagram=5&show_numbers=false&fretboard_margin=0.2"
+                        class="preset gc-icon higher-ed-icon">Guitar chord boxes</a></li>
+                <li class="activatable"><a
+                        href="#how_many=8&inlay_variation=--.-.-.-.--:--.-&size_diagram=Small&num_strings=6&frets_per_diagram=16&show_numbers=true&fretboard_margin=0.2"
+                        class="preset gc-icon higher-ed-icon">Guitar (small)</a></li>
+                <li class="activatable"><a
+                        href="#how_many=4&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=4&frets_per_diagram=14&show_numbers=true&fretboard_margin=0.4"
+                        class="preset gc-icon enterprise-icon">Bass</a></li>
+                <li class="activatable"><a
+                        href="#how_many=3&inlay_variation=--.-.-.-.--:--.-&size_diagram=Large&num_strings=5&frets_per_diagram=14&show_numbers=false&fretboard_margin=0.4"
+                        class="preset gc-icon higher-ed-icon">Bass(5)</a></li>
             </ul>
             <!-- End tabs -->
             <div class="button-text-panel main-actions hidden-print">
@@ -127,57 +139,73 @@
                 <div href="signup" class="btn btn-large btn-warning print-action">Print Diagram</div>
             </div>
 
-           <div class="settings-panel">
+            <div class="settings-panel">
 
-               <div class="settings-card">
-                   <div class="card-title">Diagram</div>
-                   <ul class="settings-list">
-                       <li>
-                           <label class="settings-label">Diagrams</label>
-                           <select id="how_many" class="span1 settings-input"><!--To be filled via javascript--></select>
-                       </li>
+                <div class="settings-card">
+                    <div class="card-title">Diagram</div>
+                    <ul class="settings-list">
+                        <li>
+                            <label class="settings-label">Diagrams</label>
+                            <select ng-model="howMany" ng-options="e for e in range(1, 30)"
+                                    class="span1 settings-input">
+                            </select>
+                        </li>
 
-                       <li>
-                           <label class="settings-label">Margins</label>
-                           <select id="fretboard_margin" class="span1 settings-input"><!--To be filled via javascript--></select>
-                       </li>
+                        <li>
+                            <label class="settings-label">Margins</label>
+                            <select ng-model="margin" ng-options="e for e in marginOptions"
+                                    class="span1 settings-input">
+                            </select>
+                        </li>
 
-                       <li>
-                           <label class="settings-label">Size</label>
-                           <select id="size_diagram" class="span1 settings-input"><!--To be filled via javascript--></select>
-                       </li>
+                        <li>
+                            <label class="settings-label">Size</label>
+                            <select ng-model="size" ng-options="o.name for o in sizeOptions"
+                                    class="span1 settings-input">
+                            </select>
+                        </li>
 
-                       <li>
-                           <label class="settings-label">Numbers</label>
-                           <input class="span1 settings-input" type="checkbox" id="show_numbers" checked="checked">
-                       </li>
+                        <li>
+                            <label class="settings-label">Numbers</label>
+                            <input class="span1 settings-input" type="checkbox" ng-model="showNumbers"/>
+                        </li>
 
 
-                   </ul>
-               </div>
-               <div class="settings-card">
-                   <div class="card-title">Frets</div>
-                   <ul class="settings-list">
-                   <li>
-                       <label class="settings-label">Strings</label>
-                       <select id="num_strings" class="span1 settings-input"><!--To be filled via javascript--></select>
-                   </li>
-                   <li>
-                       <label class="settings-label">Frets</label>
-                       <select id="frets_per_diagram" class="span1 settings-input"><!--To be filled via javascript--></select>
-                   </li>
-                   <li>
-                       <label class="settings-label">Inlay</label>
-                       <select id="inlay_variation" class="span1 settings-input"><!--To be filled via javascript--></select>
-                   </li>
-               </ul>
-               </div>
-           </div>
+                    </ul>
+                </div>
+                <div class="settings-card">
+                    <div class="card-title">Frets</div>
+                    <ul class="settings-list">
+                        <li>
+                            <label class="settings-label">Strings</label>
+                            <select ng-model="numStrings" ng-options="o for o in range(4, 8)"
+                                    class="span1 settings-input">
+                            </select>
+                        </li>
+                        <li>
+                            <label class="settings-label">Frets</label>
+                            <select ng-model="numFrets" ng-options="o for o in range(4, 16)"
+                                    class="span1 settings-input">
+                            </select>
+                        </li>
+                        <li>
+                            <label class="settings-label">Inlay</label>
+                            <select ng-model="inlayVariation" ng-options="o.name for o in inlayOptions"
+                                    class="span1 settings-input">
+                            </select>
+                        </li>
+                    </ul>
+                </div>
+            </div>
 
             <div class="tab-content">
                 <div id="main">
+                    <table class="fretboard" ng-repeat="item in range(1, howMany)">
+                        <tr ng-repeat="type in fretboardRepr()">
+                            <td>{{ type }}</td>
+                        </tr>
+                    </table>
                 </div>
-                <!-- End .tab-content -->
             </div>
 
             <div class="top-border">
