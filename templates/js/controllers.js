@@ -63,23 +63,14 @@ function FretboardsCntl($scope, $location) {
             }
         }
     };
-    var inlayOptions = [
-        {
-            name: 'No Inlay',
-            inlay: '----------------'
-        },
-        {
-            name: 'Variation 1',
-            inlay: '--.-.-.-.--:--.-'
-        },
-        {
-            name: 'Variation 2',
-            inlay: '--.-.-.--.-:--.-'
-        }
-    ]
-    var defaultInlay = inlayOptions[1]; // variation 1
-    $scope.inlayVariation = searchByName(inlayOptions, params.inlay) || defaultInlay;
-    $scope.inlayOptions = inlayOptions;
+
+    $scope.inlayOptions = {
+        'No Inlay': '----------------',
+        'Variation 1': '--.-.-.-.--:--.-',
+        'Variation 2': '--.-.-.--.-:--.-'
+    }
+    var inlay = params.inlay || 'Variation 1';
+    $scope.inlayVariation = $scope.inlayOptions[inlay];
 
     var sizeOptions = [
         {
@@ -112,7 +103,7 @@ function FretboardsCntl($scope, $location) {
         // This gets a fretboard representation ready with just about the right size
         //     '-----' is a fretboard with 5 frets and no marks
         //     '--.--:' is a fretboard with 6 frets, a dot in the third fret and double dots in the last fret
-        var inlay = $scope.inlayVariation.inlay;
+        var inlay = $scope.inlayVariation;
         var representation = inlay.substr(0, $scope.numFrets);
         return  representation.split('');
     }

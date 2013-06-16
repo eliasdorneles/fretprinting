@@ -190,7 +190,7 @@
                         </li>
                         <li>
                             <label class="settings-label">Inlay</label>
-                            <select ng-model="inlayVariation" ng-options="o.name for o in inlayOptions"
+                            <select ng-model="inlayVariation" ng-options="k for (k, v) in inlayOptions"
                                     class="span1 settings-input">
                             </select>
                         </li>
