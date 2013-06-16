@@ -1,5 +1,27 @@
 var App = angular.module('FretsApp', []);
 
+App.filter('dotmark', function () {
+    return function (numStrings, index, repr) {
+        // Algorithm for placing the dot marks in the inlay variation
+        if (repr == '-') {
+            // just a regular fret
+            return ' ';
+        }
+        var places = [];
+        if (repr == ':') {
+            // that's a double dotted fret
+            places = [1, 3];
+        } else if (repr == '.') {
+            // a simple dotted fret
+            places = [(numStrings / 2 - 1) | 0]; // cast-to-int HACK!
+        }
+        if (places.indexOf(index) > -1) {
+            return '●';
+        }
+        return ' ';
+    };
+});
+
 function FretboardsCntl($scope) {
 
     $scope.range = function (start, end, step) {
@@ -66,7 +88,9 @@ function FretboardsCntl($scope) {
         // This gets a fretboard representation ready with just about the right size
         //     '-----' is a fretboard with 5 frets and no marks
         //     '--.--:' is a fretboard with 6 frets, a dot in the third fret and double dots in the last fret
-        return $scope.inlayVariation.inlay.substr(0, $scope.numFrets);
+        var inlay = $scope.inlayVariation.inlay;
+        var representation = inlay.substr(0, $scope.numFrets);
+        return  representation.split('');
     }
 
     $scope.numbersStyle = function () {

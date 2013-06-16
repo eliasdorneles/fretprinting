@@ -203,7 +203,7 @@
                     <table class="fretboard" ng-repeat="item in range(1, howMany)" ng-style="boardStyle()">
                         <tr ng-repeat="type in fretboardRepr()">
                             <td class="fretnumber" ng-style="numbersStyle()">{{ $index + 1 }}</td>
-                            <td ng-repeat="s in range(2, numStrings)" ng-style="size.style">{{ '&nbsp;' }}</td>
+                            <td ng-repeat="s in range(2, numStrings)" ng-style="size.style">{{ numStrings|dotmark:$index:type }}</td>
                         </tr>
                     </table>
                 </div>
