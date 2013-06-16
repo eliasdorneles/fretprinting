@@ -23,7 +23,19 @@ App.filter('dotmark', function () {
     };
 });
 
-function FretboardsCntl($scope) {
+function FretboardsCntl($scope, $location) {
+
+    var params = (function (search) {
+        return {
+            howMany: search.howMany ? parseInt(search.howMany) : undefined,
+            numFrets: search.numFrets ? parseInt(search.numFrets) : undefined,
+            numStrings: search.numStrings ? parseInt(search.numStrings) : undefined,
+            margin: search.margin ? parseFloat(search.margin) : undefined,
+            showNumbers: (search.showNumbers != undefined) ? (search.showNumbers == 'true') : undefined,
+            inlay: search.inlay,
+            size: search.size
+        }
+    })($location.search());
 
     $scope.range = function (start, end, step) {
         step = (step == undefined) ? 1 : step;
@@ -34,14 +46,23 @@ function FretboardsCntl($scope) {
         return list;
     }
 
-    $scope.howMany = 3;
-    $scope.showNumbers = true;
-    $scope.numStrings = 6;
-    $scope.numFrets = 14;
+    $scope.howMany = params.howMany || 3;
+    $scope.showNumbers = params.showNumbers != undefined ? params.showNumbers : true;
+    $scope.numStrings = params.numStrings || 6;
+    $scope.numFrets = params.numFrets || 14;
 
-    $scope.margin = 0.8;
+    $scope.margin = params.margin || 0.8;
     $scope.marginOptions = [0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.5, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3.0];
 
+
+    var searchByName = function (options, name) {
+        for (i in options) {
+            var it = options[i];
+            if (it.name == name) {
+                return it
+            }
+        }
+    };
     var inlayOptions = [
         {
             name: 'No Inlay',
@@ -56,7 +77,8 @@ function FretboardsCntl($scope) {
             inlay: '--.-.-.--.-:--.-'
         }
     ]
-    $scope.inlayVariation = inlayOptions[1]; // default variation 1
+    var defaultInlay = inlayOptions[1]; // variation 1
+    $scope.inlayVariation = searchByName(inlayOptions, params.inlay) || defaultInlay;
     $scope.inlayOptions = inlayOptions;
 
     var sizeOptions = [
@@ -81,7 +103,8 @@ function FretboardsCntl($scope) {
             style: { width: '40px', height: '56px' }
         }
     ];
-    $scope.size = sizeOptions[2]; // default medium
+    var defaultSize = sizeOptions[2]; // medium
+    $scope.size = searchByName(sizeOptions, params.size) || defaultSize;
     $scope.sizeOptions = sizeOptions;
 
 
