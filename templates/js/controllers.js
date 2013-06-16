@@ -54,48 +54,31 @@ function FretboardsCntl($scope, $location) {
     $scope.margin = params.margin || 0.8;
     $scope.marginOptions = [0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.5, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3.0];
 
-
-    var searchByName = function (options, name) {
-        for (i in options) {
-            var it = options[i];
-            if (it.name == name) {
-                return it
-            }
-        }
-    };
-
     $scope.inlayOptions = {
         'No Inlay': '----------------',
         'Variation 1': '--.-.-.-.--:--.-',
         'Variation 2': '--.-.-.--.-:--.-'
     }
-    var inlay = params.inlay || 'Variation 1';
-    $scope.inlayVariation = $scope.inlayOptions[inlay];
+    $scope.inlayVariation = $scope.inlayOptions[params.inlay || 'Variation 1'];
 
-    var sizeOptions = [
-        {
-            name: 'Tiny',
+    var sizeOptions = {
+        'Tiny': {
             style: { width: '18px', height: '24px' }
         },
-        {
-            name: 'Small',
+        'Small': {
             style: { width: '22px', height: '30px' }
         },
-        {
-            name: 'Medium',
+        'Medium': {
             style: { width: '28px', height: '38px' }
         },
-        {
-            name: 'Large',
+        'Large': {
             style: { width: '36px', height: '50px' }
         },
-        {
-            name: 'X-Large',
+        'X-Large': {
             style: { width: '40px', height: '56px' }
         }
-    ];
-    var defaultSize = sizeOptions[2]; // medium
-    $scope.size = searchByName(sizeOptions, params.size) || defaultSize;
+    };
+    $scope.size = sizeOptions[params.size || 'Medium'];
     $scope.sizeOptions = sizeOptions;
 
 

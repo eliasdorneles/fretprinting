@@ -160,7 +160,7 @@
 
                         <li>
                             <label class="settings-label">Size</label>
-                            <select ng-model="size" ng-options="o.name for o in sizeOptions"
+                            <select ng-model="size" ng-options="k for (k, v) in sizeOptions"
                                     class="span1 settings-input">
                             </select>
                         </li>
