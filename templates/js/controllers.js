@@ -36,6 +36,32 @@ function FretboardsCntl($scope) {
     $scope.inlayVariation = inlayOptions[1]; // default variation 1
     $scope.inlayOptions = inlayOptions;
 
+    var sizeOptions = [
+        {
+            name: 'Tiny',
+            style: { width: '18px', height: '24px' }
+        },
+        {
+            name: 'Small',
+            style: { width: '22px', height: '30px' }
+        },
+        {
+            name: 'Medium',
+            style: { width: '28px', height: '38px' }
+        },
+        {
+            name: 'Large',
+            style: { width: '36px', height: '50px' }
+        },
+        {
+            name: 'X-Large',
+            style: { width: '40px', height: '56px' }
+        }
+    ];
+    $scope.size = sizeOptions[2]; // default medium
+    $scope.sizeOptions = sizeOptions;
+
+
     $scope.fretboardRepr = function () {
         // This gets a fretboard representation ready with just about the right size
         //     '-----' is a fretboard with 5 frets and no marks
@@ -43,33 +69,14 @@ function FretboardsCntl($scope) {
         return $scope.inlayVariation.inlay.substr(0, $scope.numFrets);
     }
 
-    var sizeOptions = [
-        {
-            name: 'Tiny',
-            width: '18px',
-            height: '24px'
-        },
-        {
-            name: 'Small',
-            width: '22px',
-            height: '30px'
-        },
-        {
-            name: 'Medium',
-            width: '28px',
-            height: '38px'
-        },
-        {
-            name: 'Large',
-            width: '36px',
-            height: '50px'
-        },
-        {
-            name: 'X-Large',
-            width: '40px',
-            height: '56px'
-        }
-    ];
-    $scope.size = sizeOptions[2]; // default medium
-    $scope.sizeOptions = sizeOptions;
+    $scope.numbersStyle = function () {
+        return {
+            visibility: $scope.showNumbers ? 'visible' : 'hidden'
+        };
+    }
+    $scope.boardStyle = function () {
+        return {
+            margin: $scope.margin + 'cm'
+        };
+    }
 }
