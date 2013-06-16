@@ -37,7 +37,7 @@
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a
     different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a>
     to experience this site.</p><![endif]-->
-<div class="page-content-wrapper">
+<div class="page-content-wrapper" ng-controller="FretboardsCntl">
 <header class="header hidden-print">
     <div class="row">
         <div class="span4">
@@ -104,13 +104,13 @@
         </ul>
 
         <div class="row get-started-now">
-            <a href="" class="btn btn-large btn-warning getting-started-btn">Get Started Now</a>
+            <a href="" class="btn btn-large btn-warning getting-started-btn" ng-click="getStarted()">Get Started Now</a>
         </div>
     </div>
 </div>
 
 
-<div class="container" ng-controller="FretboardsCntl">
+<div class="container">
 
     <div class="row">
         <div class="span12 white-panel no-padding">

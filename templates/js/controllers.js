@@ -101,4 +101,7 @@ function FretboardsCntl($scope, $location) {
             margin: $scope.margin + 'cm'
         };
     }
+    $scope.getStarted = function(){
+        scrollTo(0, 1011);
+    }
 }
