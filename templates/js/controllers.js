@@ -23,7 +23,7 @@ App.filter('dotmark', function () {
     };
 });
 
-function FretboardsCntl($scope, $location) {
+function FretboardsCntl($scope, $location, $window) {
 
     var getUrlParams = function (search) {
         return {
@@ -83,58 +83,72 @@ function FretboardsCntl($scope, $location) {
     var params = getUrlParams($location.search());
     setupFretboards(params);
 
-    $scope.presets = {
-        'Guitar': {
-            howMany: 3,
-            inlay: 'Variation 1',
-            size: 'Medium',
-            numStrings: 6,
-            numFrets: 14,
-            showNumbers: true,
-            margin: 0.8
+    $scope.presets = [
+        {
+            name: 'Guitar',
+            preset: {
+                howMany: 3,
+                inlay: 'Variation 1',
+                size: 'Medium',
+                numStrings: 6,
+                numFrets: 14,
+                showNumbers: true,
+                margin: 0.8
+            }
         },
-        'Chord Boxes': {
-            howMany: 9,
-            inlay: 'No Inlay',
-            size: 'Large',
-            numStrings: 6,
-            numFrets: 5,
-            showNumbers: false,
-            margin: 0.2
+        {
+            name: 'Chord Boxes',
+            preset: {
+                howMany: 9,
+                inlay: 'No Inlay',
+                size: 'Large',
+                numStrings: 6,
+                numFrets: 5,
+                showNumbers: false,
+                margin: 0.2
+            }
+        } ,
+        {
+            name: 'Guitar (small)',
+            preset: {
+                howMany: 8,
+                inlay: 'Variation 1',
+                size: 'Small',
+                numStrings: 6,
+                numFrets: 16,
+                showNumbers: true,
+                margin: 0.2
+            }
+        } ,
+        {
+            name: 'Bass',
+            preset: {
+                howMany: 4,
+                inlay: 'Variation 1',
+                size: 'Large',
+                numStrings: 4,
+                numFrets: 14,
+                showNumbers: true,
+                margin: 0.4
+            }
         },
-        'Guitar (small)': {
-            howMany: 8,
-            inlay: 'Variation 1',
-            size: 'Small',
-            numStrings: 6,
-            numFrets: 16,
-            showNumbers: true,
-            margin: 0.2
-        },
-        'Bass': {
-            howMany: 4,
-            inlay: 'Variation 1',
-            size: 'Large',
-            numStrings: 4,
-            numFrets: 14,
-            showNumbers: true,
-            margin: 0.4
-        },
-        'Bass 5 Strings': {
-            howMany: 3,
-            inlay: 'Variation 1',
-            size: 'Large',
-            numStrings: 5,
-            numFrets: 14,
-            showNumbers: false,
-            margin: 0.4
+        {
+            name: 'Bass 5 Strings',
+            preset: {
+                howMany: 3,
+                inlay: 'Variation 1',
+                size: 'Large',
+                numStrings: 5,
+                numFrets: 14,
+                showNumbers: false,
+                margin: 0.4
+            }
         }
-    };
+    ];
 
-    $scope.activatePreset = function (preset) {
-        console.log('preset', preset);
+    $scope.activatePreset = function (preset, index) {
+        $scope.selectedPresetIndex = index;
         setupFretboards(preset);
-        // TODO: activate link
     }
 
     $scope.fretboardRepr = function () {
@@ -158,5 +172,8 @@ function FretboardsCntl($scope, $location) {
     }
     $scope.getStarted = function () {
         scrollTo(0, 1011);
+    }
+    $scope.print = function () {
+        $window.print();
     }
 }

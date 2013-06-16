@@ -116,8 +116,8 @@
         <div class="span12 white-panel no-padding">
             <h3 class="tab-title hidden-print">Fretboard Presets</h3>
             <ul class="nav nav-tabs hidden-print activatable-container">
-                <li class="activatable" ng-repeat="(name, preset) in presets">
-                    <a href="" ng-click="activatePreset(preset)">{{ name }}</a>
+                <li class="activatable" ng-class="{active: $index == selectedPresetIndex}" ng-repeat="def in presets">
+                    <a href="" ng-click="activatePreset(def.preset, $index)">{{ def.name }}</a>
                 </li>
             </ul>
 
@@ -125,7 +125,7 @@
             <div class="button-text-panel main-actions hidden-print">
                 <div class="btn btn-large">Share</div>
                 <div class="btn btn-large">Edit</div>
-                <div href="signup" class="btn btn-large btn-warning print-action">Print Diagram</div>
+                <div href="signup" class="btn btn-large btn-warning print-action" ng-click="print()">Print Diagram</div>
             </div>
 
             <div class="settings-panel">
@@ -204,7 +204,8 @@
                 <div class="button-text-panel pull-right hidden-print">
                     <div class="btn btn-large">Share</div>
                     <div class="btn btn-large">Edit</div>
-                    <div href="signup" class="btn btn-large btn-warning print-action">Print Diagram</div>
+                    <div href="signup" class="btn btn-large btn-warning print-action" ng-click="print()">Print Diagram
+                    </div>
                 </div>
             </div>
         </div>
