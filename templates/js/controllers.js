@@ -2,7 +2,7 @@ var App = angular.module('FretsApp', []);
 
 App.filter('dotmark', function () {
     return function (numStrings, index, repr) {
-        // Algorithm for placing the dot marks in the inlay variation
+        // Algorithm for placing the dot marks according to the inlay variation
         if (repr == '-') {
             // just a regular fret
             return ' ';
@@ -13,7 +13,8 @@ App.filter('dotmark', function () {
             places = [1, 3];
         } else if (repr == '.') {
             // a simple dotted fret
-            places = [(numStrings / 2 - 1) | 0]; // cast-to-int HACK!
+            var midString = (numStrings / 2 - 1);
+            places = [midString | 0]; // cast-to-int HACK!
         }
         if (places.indexOf(index) > -1) {
             return '●';
